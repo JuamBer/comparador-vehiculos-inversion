@@ -1,0 +1,783 @@
+---
+
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Comparador de Inversión</title>
+    <!-- Carga de Chart.js para el gráfico -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
+    ></script>
+    <style>
+      /* Tipografía Inter */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Estilos para inputs number */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-6 text-center">
+        Comparador de Vehículos de Inversión
+      </h1>
+
+      <!-- SECCIÓN DE PARÁMETROS GLOBALES -->
+      <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-b pb-3">
+          Parámetros Globales
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <!-- Aportación Inicial -->
+          <div class="col-span-1">
+            <label
+              for="inicial"
+              class="block text-sm font-medium text-gray-600 mb-1"
+              >Aportación Inicial (€)</label
+            >
+            <input
+              type="number"
+              id="inicial"
+              value="5000"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            />
+          </div>
+          <!-- Aportación Mensual -->
+          <div class="col-span-1">
+            <label
+              for="mensual"
+              class="block text-sm font-medium text-gray-600 mb-1"
+              >Aportación Mensual (€)</label
+            >
+            <input
+              type="number"
+              id="mensual"
+              value="200"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            />
+          </div>
+          <!-- Horizonte de Inversión -->
+          <div class="col-span-1">
+            <label
+              for="horizonte"
+              class="block text-sm font-medium text-gray-600 mb-1"
+              >Horizonte (Años)</label
+            >
+            <input
+              type="number"
+              id="horizonte"
+              value="25"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            />
+          </div>
+          <!-- Inflación Anual -->
+          <div class="col-span-1">
+            <label
+              for="inflacion"
+              class="block text-sm font-medium text-gray-600 mb-1"
+              >Inflación Anual (%)</label
+            >
+            <input
+              type="number"
+              step="0.1"
+              id="inflacion"
+              value="2"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            />
+          </div>
+          <!-- Tipo Marginal IRPF -->
+          <div class="col-span-2">
+            <label
+              for="irpf"
+              class="block text-sm font-medium text-gray-600 mb-1"
+              >Tipo Marginal IRPF (%)</label
+            >
+            <input
+              type="number"
+              step="1"
+              id="irpf"
+              value="30"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+              title="Tu tipo de IRPF más alto. Clave para el Plan de Pensiones."
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN DE PARÁMETROS POR PRODUCTO -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <!-- Tarjeta: Fondo de Inversión -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl font-semibold text-blue-700 mb-4">
+            1. Fondo de Inversión
+          </h3>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="fi_rentabilidad"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Rentabilidad Bruta (%)</label
+              >
+              <input
+                type="number"
+                step="0.1"
+                id="fi_rentabilidad"
+                value="6.0"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                for="fi_gestion"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Com. Gestión (%)</label
+              >
+              <input
+                type="number"
+                step="0.01"
+                id="fi_gestion"
+                value="1.5"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                for="fi_deposito"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Com. Depósito (%)</label
+              >
+              <input
+                type="number"
+                step="0.01"
+                id="fi_deposito"
+                value="0.15"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: PIAS -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl font-semibold text-green-700 mb-4">
+            2. PIAS (Seguro de Ahorro)
+          </h3>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="pias_rentabilidad"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Rentabilidad Bruta (%)</label
+              >
+              <input
+                type="number"
+                step="0.1"
+                id="pias_rentabilidad"
+                value="4.5"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
+            <div>
+              <label
+                for="pias_gestion"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Com. Gestión / Póliza (%)</label
+              >
+              <input
+                type="number"
+                step="0.01"
+                id="pias_gestion"
+                value="1.75"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
+            <div>
+              <label
+                for="pias_seguro"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Coste Seguro (anual €)</label
+              >
+              <input
+                type="number"
+                step="1"
+                id="pias_seguro"
+                value="30"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
+                title="Coste fijo anual del seguro de vida asociado"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Plan de Pensiones -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl font-semibold text-purple-700 mb-4">
+            3. Plan de Pensiones
+          </h3>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="pp_rentabilidad"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Rentabilidad Bruta (%)</label
+              >
+              <input
+                type="number"
+                step="0.1"
+                id="pp_rentabilidad"
+                value="5.0"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
+              />
+            </div>
+            <div>
+              <label
+                for="pp_gestion"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Com. Gestión (%)</label
+              >
+              <input
+                type="number"
+                step="0.01"
+                id="pp_gestion"
+                value="1.25"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
+              />
+            </div>
+            <div>
+              <label
+                for="pp_deposito"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Com. Depósito (%)</label
+              >
+              <input
+                type="number"
+                step="0.01"
+                id="pp_deposito"
+                value="0.15"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de Calcular -->
+      <div class="text-center mb-8">
+        <button
+          id="calcular"
+          class="w-full md:w-auto px-12 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+        >
+          Calcular Proyección
+        </button>
+      </div>
+
+      <!-- SECCIÓN DE RESULTADOS -->
+      <div
+        id="resultados-container"
+        class="bg-white p-6 rounded-xl shadow-lg hidden"
+      >
+        <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-b pb-3">
+          Resultados de la Proyección
+        </h2>
+
+        <!-- Gráfico de Comparación (Líneas: Capital vs Tiempo) -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">
+            Evolución del Capital Bruto (vs. Tiempo)
+          </h3>
+          <div class="h-80">
+            <canvas id="netoChart"></canvas>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-max text-left">
+            <thead>
+              <tr class="border-b-2 border-gray-300">
+                <th class="p-4 text-sm font-semibold uppercase text-gray-500"
+                  >Métrica</th
+                >
+                <th
+                  class="p-4 text-sm font-semibold uppercase text-blue-700 text-right"
+                  >Fondo Inversión</th
+                >
+                <th
+                  class="p-4 text-sm font-semibold uppercase text-green-700 text-right"
+                  >PIAS</th
+                >
+                <th
+                  class="p-4 text-sm font-semibold uppercase text-purple-700 text-right"
+                  >Plan de Pensiones</th
+                >
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <!-- Total Aportado -->
+              <tr class="hover:bg-gray-50">
+                <td class="p-4 font-medium">Total Aportado</td>
+                <td
+                  id="res_total_aportado"
+                  class="p-4 font-medium text-gray-600 text-right"
+                  colspan="3"></td>
+              </tr>
+              <!-- Capital Bruto -->
+              <tr class="hover:bg-gray-50">
+                <td class="p-4 font-medium"
+                  >Capital Bruto (antes de impuestos)</td
+                >
+                <td id="res_bruto_fi" class="p-4 font-medium text-right"></td>
+                <td id="res_bruto_pias" class="p-4 font-medium text-right"></td>
+                <td id="res_bruto_pp" class="p-4 font-medium text-right"></td>
+              </tr>
+              <!-- Ahorro Fiscal -->
+              <tr class="hover:bg-gray-50 bg-purple-50">
+                <td class="p-4 font-medium text-purple-800"
+                  >Ahorro Fiscal Acumulado (PP)</td
+                >
+                <td class="p-4 font-medium text-gray-400 text-right">N/A</td>
+                <td class="p-4 font-medium text-gray-400 text-right">N/A</td>
+                <td
+                  id="res_ahorro_pp"
+                  class="p-4 font-bold text-purple-800 text-right"></td>
+              </tr>
+              <!-- Impuestos en Rescate -->
+              <tr class="hover:bg-gray-50 bg-red-50">
+                <td class="p-4 font-medium text-red-800"
+                  >Impuestos Estimados en Rescate</td
+                >
+                <td
+                  id="res_impuestos_fi"
+                  class="p-4 font-medium text-red-800 text-right"></td>
+                <td
+                  id="res_impuestos_pias"
+                  class="p-4 font-medium text-red-800 text-right"></td>
+                <td
+                  id="res_impuestos_pp"
+                  class="p-4 font-medium text-red-800 text-right"></td>
+              </tr>
+              <!-- CAPITAL NETO (AJUSTADO) -->
+              <tr class="border-t-2 border-gray-300">
+                <td class="p-4 font-bold text-lg text-gray-900"
+                  >Capital Neto Final (Ajustado)</td
+                >
+                <td
+                  id="res_neto_fi"
+                  class="p-4 font-bold text-lg text-blue-800 text-right"></td>
+                <td
+                  id="res_neto_pias"
+                  class="p-4 font-bold text-lg text-green-800 text-right"></td>
+                <td
+                  id="res_neto_pp"
+                  class="p-4 font-bold text-lg text-purple-800 text-right"></td>
+              </tr>
+              <!-- CAPITAL REAL (vs Inflación) -->
+              <tr class="bg-gray-100">
+                <td class="p-4 font-medium text-gray-700"
+                  >Capital Neto (Poder adquisitivo hoy)</td
+                >
+                <td
+                  id="res_real_fi"
+                  class="p-4 font-medium text-gray-700 text-right"></td>
+                <td
+                  id="res_real_pias"
+                  class="p-4 font-medium text-gray-700 text-right"></td>
+                <td
+                  id="res_real_pp"
+                  class="p-4 font-medium text-gray-700 text-right"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Notas Aclaratorias -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">
+            Notas sobre los Cálculos y Fiscalidad
+          </h3>
+          <div class="space-y-4 text-sm text-gray-600">
+            <p>
+              <strong class="text-blue-700">1. Fondo de Inversión:</strong> Se asume
+              un rescate total al final. Los impuestos se calculan sobre las <strong
+                class="font-semibold">ganancias de capital</strong
+              > (19%-28%). Para simplificar, se usa un tipo fijo del 23% sobre la
+              plusvalía.
+            </p>
+            <p>
+              <strong class="text-blue-700"
+                >2. Fondo + Renta Vitalicia (Tu Opción 2):</strong
+              > Este escenario usaría el 'Capital Bruto' del Fondo de Inversión para
+              contratar una Renta Vitalicia. La ventaja fiscal es <strong
+                class="font-semibold">en el cobro de esa renta</strong
+              > (depende de la edad, pero es muy favorable), no en la acumulación.
+            </p>
+            <p>
+              <strong class="text-green-700">3. PIAS (Tu Opción 3):</strong> La gran
+              ventaja fiscal es que, si se rescata como <strong
+                class="font-semibold">Renta Vitalicia</strong
+              > (y cumple 5 años de antigüedad), las <strong
+                class="font-semibold">ganancias están 100% exentas</strong
+              > de impuestos. El cálculo de 'Capital Neto' asume este escenario favorable
+              (Impuestos = 0).
+            </p>
+            <p>
+              <strong class="text-purple-700"
+                >4. Plan de Pensiones + Renta (Tu Opción 4):</strong
+              >
+              <ul class="list-disc list-inside ml-4 space-y-2">
+                <li>
+                  <strong>Ventaja (Ahorro Fiscal):</strong> Cada aportación mensual/anual
+                  reduce tu base imponible del IRPF. El cálculo suma este ahorro
+                  anual (Aportación Anual * Tipo IRPF) y lo añade al capital neto
+                  final.
+                </li>
+                <li>
+                  <strong>Desventaja (Rescate):</strong> Al rescatarlo (como renta
+                  o de golpe), <strong class="font-semibold"
+                    >TODO el capital</strong
+                  > (no solo las ganancias) tributa como <strong
+                    class="font-semibold">Rendimiento del Trabajo</strong
+                  > (al tipo IRPF, no como ahorro).
+                </li>
+                <li>
+                  El 'Capital Neto Ajustado' es: (Capital Bruto - Impuestos en
+                  Rescate) + Ahorro Fiscal Acumulado.
+                </li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      // Variable global para el gráfico
+      let netoChart = null;
+
+      /**
+       * Inicializa o actualiza el gráfico de líneas con la evolución anual del capital bruto.
+       * @param {number[]} years Array de años [0, 1, 2, ..., horizonte]
+       * @param {number[]} capital_fi_anual Capital Bruto anual del Fondo de Inversión.
+       * @param {number[]} capital_pias_anual Capital Bruto anual del PIAS.
+       * @param {number[]} capital_pp_anual Capital Bruto anual del Plan de Pensiones.
+       */
+      function actualizarGrafico(
+        years,
+        capital_fi_anual,
+        capital_pias_anual,
+        capital_pp_anual
+      ) {
+        const ctx = document.getElementById("netoChart").getContext("2d");
+
+        const data = {
+          labels: years, // Eje X: Años
+          datasets: [
+            {
+              label: "Fondo de Inversión (Bruto)",
+              data: capital_fi_anual,
+              borderColor: "rgb(37, 99, 235)", // Azul
+              backgroundColor: "rgba(37, 99, 235, 0.5)",
+              tension: 0.2,
+              pointRadius: 2,
+              fill: false,
+            },
+            {
+              label: "PIAS (Bruto)",
+              data: capital_pias_anual,
+              borderColor: "rgb(22, 163, 74)", // Verde
+              backgroundColor: "rgba(22, 163, 74, 0.5)",
+              tension: 0.2,
+              pointRadius: 2,
+              fill: false,
+            },
+            {
+              label: "Plan de Pensiones (Bruto)",
+              data: capital_pp_anual,
+              borderColor: "rgb(126, 34, 206)", // Morado
+              backgroundColor: "rgba(126, 34, 206, 0.5)",
+              tension: 0.2,
+              pointRadius: 2,
+              fill: false,
+            },
+          ],
+        };
+
+        const options = {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true, // Mostrar leyenda
+              position: "top",
+              labels: {
+                usePointStyle: true,
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  let label = context.dataset.label || "";
+                  if (label) {
+                    label += ": ";
+                  }
+                  label += new Intl.NumberFormat("es-ES", {
+                    style: "currency",
+                    currency: "EUR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(context.raw);
+                  return label;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Tiempo (Años)",
+              },
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Capital Bruto Acumulado (€)",
+              },
+              ticks: {
+                callback: function (value, index, values) {
+                  return new Intl.NumberFormat("es-ES", {
+                    style: "currency",
+                    currency: "EUR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(value);
+                },
+              },
+            },
+          },
+        };
+
+        // Destruir el gráfico anterior si existe
+        if (netoChart) {
+          netoChart.destroy();
+        }
+
+        // Crear el nuevo gráfico de líneas
+        netoChart = new Chart(ctx, {
+          type: "line",
+          data: data,
+          options: options,
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("calcular")
+          .addEventListener("click", function () {
+            // --- 1. LEER DATOS GLOBALES ---
+            const inicial =
+              parseFloat(document.getElementById("inicial").value) || 0;
+            const mensual =
+              parseFloat(document.getElementById("mensual").value) || 0;
+            const horizonte =
+              parseInt(document.getElementById("horizonte").value) || 0;
+            const inflacion =
+              parseFloat(document.getElementById("inflacion").value) / 100 || 0;
+            const irpf =
+              parseFloat(document.getElementById("irpf").value) / 100 || 0;
+
+            // --- 2. LEER COMISIONES Y RENTABILIDAD POR PRODUCTO ---
+
+            // Fondo de Inversión
+            const fi_rentabilidad_anual =
+              parseFloat(document.getElementById("fi_rentabilidad").value) /
+                100 || 0;
+            const fi_gestion =
+              parseFloat(document.getElementById("fi_gestion").value) / 100 ||
+              0;
+            const fi_deposito =
+              parseFloat(document.getElementById("fi_deposito").value) / 100 ||
+              0;
+            const comision_fi_total = fi_gestion + fi_deposito;
+            const fi_rentabilidadMensual =
+              Math.pow(1 + fi_rentabilidad_anual, 1 / 12) - 1;
+
+            // PIAS
+            const pias_rentabilidad_anual =
+              parseFloat(document.getElementById("pias_rentabilidad").value) /
+                100 || 0;
+            const pias_gestion =
+              parseFloat(document.getElementById("pias_gestion").value) / 100 ||
+              0;
+            const pias_seguro =
+              parseFloat(document.getElementById("pias_seguro").value) || 0;
+            const pias_rentabilidadMensual =
+              Math.pow(1 + pias_rentabilidad_anual, 1 / 12) - 1;
+
+            // Plan de Pensiones
+            const pp_rentabilidad_anual =
+              parseFloat(document.getElementById("pp_rentabilidad").value) /
+                100 || 0;
+            const pp_gestion =
+              parseFloat(document.getElementById("pp_gestion").value) / 100 ||
+              0;
+            const pp_deposito =
+              parseFloat(document.getElementById("pp_deposito").value) / 100 ||
+              0;
+            const comision_pp_total = pp_gestion + pp_deposito;
+            const pp_rentabilidadMensual =
+              Math.pow(1 + pp_rentabilidad_anual, 1 / 12) - 1;
+
+            // --- 3. INICIALIZAR VARIABLES DE CÁLCULO ---
+            let capital_fi = inicial;
+            let capital_pias = inicial;
+            let capital_pp = inicial;
+
+            let totalAportado = inicial;
+            let ahorroFiscalPP = 0; // El gran beneficio del PP
+
+            // Arrays para el gráfico (Capital Bruto a lo largo del tiempo)
+            let capital_fi_anual = [inicial];
+            let capital_pias_anual = [inicial];
+            let capital_pp_anual = [inicial];
+            let years = [0];
+
+            // --- 4. BUCLE DE SIMULACIÓN ANUAL (CON CÁLCULO MENSUAL INTERNO) ---
+            for (let ano = 0; ano < horizonte; ano++) {
+              let aportacionAnualPP = 0;
+
+              for (let mes = 0; mes < 12; mes++) {
+                // CÁLCULOS DE APORTACIÓN Y RENTABILIDAD MENSUAL
+
+                // Solo actualizamos totalAportado en el bucle si hay aportación mensual
+                if (mensual > 0) {
+                  totalAportado += mensual;
+                  aportacionAnualPP += mensual;
+                }
+
+                // Añadir aportación mensual y aplicar rentabilidad
+                capital_fi =
+                  (capital_fi + mensual) * (1 + fi_rentabilidadMensual);
+                capital_pias =
+                  (capital_pias + mensual) * (1 + pias_rentabilidadMensual);
+                capital_pp =
+                  (capital_pp + mensual) * (1 + pp_rentabilidadMensual);
+              }
+
+              // CÁLCULOS ANUALES (Comisiones y Ahorro Fiscal)
+
+              // Ahorro fiscal del PP (al final del año sobre lo aportado)
+              ahorroFiscalPP += aportacionAnualPP * irpf;
+
+              // Aplicar comisiones y costes anuales (Se aplican sobre el saldo final del año)
+              capital_fi *= 1 - comision_fi_total;
+              capital_pias *= 1 - pias_gestion;
+              capital_pias -= pias_seguro; // Coste fijo del seguro
+              capital_pp *= 1 - comision_pp_total;
+
+              // GUARDAR DATOS ANUALES PARA EL GRÁFICO (Capital Bruto)
+              capital_fi_anual.push(capital_fi);
+              capital_pias_anual.push(capital_pias);
+              capital_pp_anual.push(capital_pp);
+              years.push(ano + 1);
+            }
+
+            // --- 5. CÁLCULO DE IMPUESTOS Y NETO FINAL ---
+
+            // 5.1. Fondo de Inversión
+            const ganancias_fi = capital_fi - totalAportado;
+            // Usamos 23% como tipo medio de ahorro
+            const impuestos_fi = ganancias_fi > 0 ? ganancias_fi * 0.23 : 0;
+            const neto_fi = capital_fi - impuestos_fi;
+
+            // 5.2. PIAS
+            // Asumimos el escenario fiscalmente óptimo: rescate como Renta Vitalicia (Exento).
+            const impuestos_pias = 0;
+            const neto_pias = capital_pias;
+
+            // 5.3. Plan de Pensiones
+            // El rescate tributa TODO como rendimiento del trabajo (al tipo IRPF)
+            const impuestos_pp = capital_pp * irpf;
+            const neto_pp_bruto = capital_pp - impuestos_pp;
+            // El neto real es el neto del rescate + todo lo que nos ahorramos año a año
+            const neto_pp_ajustado = neto_pp_bruto + ahorroFiscalPP;
+
+            // --- 6. CÁLCULO DEL CAPITAL REAL (AJUSTADO A INFLACIÓN) ---
+            const factorInflacion = Math.pow(1 + inflacion, horizonte);
+            const real_fi = neto_fi / factorInflacion;
+            const real_pias = neto_pias / factorInflacion;
+            const real_pp = neto_pp_ajustado / factorInflacion;
+
+            // --- 7. MOSTRAR RESULTADOS EN LA TABLA ---
+            const formatter = new Intl.NumberFormat("es-ES", {
+              style: "currency",
+              currency: "EUR",
+            });
+
+            document.getElementById("res_total_aportado").textContent =
+              formatter.format(totalAportado);
+
+            document.getElementById("res_bruto_fi").textContent =
+              formatter.format(capital_fi);
+            document.getElementById("res_bruto_pias").textContent =
+              formatter.format(capital_pias);
+            document.getElementById("res_bruto_pp").textContent =
+              formatter.format(capital_pp);
+
+            document.getElementById("res_ahorro_pp").textContent =
+              `+${formatter.format(ahorroFiscalPP)}`;
+
+            document.getElementById("res_impuestos_fi").textContent =
+              `-${formatter.format(impuestos_fi)}`;
+            document.getElementById("res_impuestos_pias").textContent =
+              formatter.format(impuestos_pias) + " (Exento)";
+            document.getElementById("res_impuestos_pp").textContent =
+              `-${formatter.format(impuestos_pp)}`;
+
+            document.getElementById("res_neto_fi").textContent =
+              formatter.format(neto_fi);
+            document.getElementById("res_neto_pias").textContent =
+              formatter.format(neto_pias);
+            document.getElementById("res_neto_pp").textContent =
+              formatter.format(neto_pp_ajustado);
+
+            document.getElementById("res_real_fi").textContent =
+              formatter.format(real_fi);
+            document.getElementById("res_real_pias").textContent =
+              formatter.format(real_pias);
+            document.getElementById("res_real_pp").textContent =
+              formatter.format(real_pp);
+
+            // --- 8. MOSTRAR GRÁFICO ---
+            actualizarGrafico(
+              years,
+              capital_fi_anual,
+              capital_pias_anual,
+              capital_pp_anual
+            );
+
+            // Mostrar el contenedor de resultados
+            document
+              .getElementById("resultados-container")
+              .classList.remove("hidden");
+          });
+      });
+    </script>
+  </body>
+</html>
