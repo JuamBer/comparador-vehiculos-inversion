@@ -40,14 +40,14 @@
             </h1>
           </div>
           <div class="flex space-x-4">
-            <a 
-              href="/comparador-vehiculos-inversion/" 
+            <a
+              href="/comparador-vehiculos-inversion/"
               class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-300"
             >
               Inicio
             </a>
-            <a 
-              href="/comparador-vehiculos-inversion/calculator" 
+            <a
+              href="/comparador-vehiculos-inversion/calculator"
               class="px-4 py-2 text-blue-600 bg-blue-50 rounded-lg font-medium hover:bg-blue-100 transition-colors duration-300"
             >
               Calculadora
@@ -65,7 +65,8 @@
             Calculadora de Inversión
           </h1>
           <p class="text-xl opacity-90 max-w-2xl mx-auto">
-            Compara diferentes vehículos de inversión y encuentra la mejor opción para tu perfil
+            Compara diferentes vehículos de inversión y encuentra la mejor
+            opción para tu perfil
           </p>
         </div>
       </div>
@@ -73,7 +74,6 @@
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
       <!-- SECCIÓN DE PARÁMETROS GLOBALES -->
       <div class="bg-white rounded-xl shadow-lg mb-8 border border-gray-200">
         <div class="p-6 border-b border-gray-200">
@@ -86,538 +86,611 @@
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          <!-- Aportación Inicial -->
-          <div class="col-span-1">
-            <label
-              for="inicial"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Aportación Inicial (€)</label
-            >
-            <input
-              type="number"
-              id="inicial"
-              value="5000"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
-            />
-          </div>
-          <!-- Aportación Mensual -->
-          <div class="col-span-1">
-            <label
-              for="mensual"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Aportación Mensual (€)</label
-            >
-            <input
-              type="number"
-              id="mensual"
-              value="200"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
-              title="Se aplicarán automáticamente los límites legales: PIAS máx 8.000€/año, Plan Pensiones máx 1.500€/año"
-            />
-            <p class="text-xs text-gray-500 mt-1">
-              <span id="limite-info" class="hidden"
-                >⚠️ Límites aplicados automáticamente</span
+            <!-- Aportación Inicial -->
+            <div class="col-span-1">
+              <label
+                for="inicial"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Aportación Inicial (€)</label
               >
-            </p>
-          </div>
-          <!-- Edad Actual -->
-          <div class="col-span-1">
-            <label
-              for="edad"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Edad Actual</label
-            >
-            <input
-              type="number"
-              id="edad"
-              value="35"
-              min="18"
-              max="67"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
-              title="Tu edad actual para calcular fiscalidad correcta de PIAS"
-            />
-          </div>
-          <!-- Horizonte de Inversión -->
-          <div class="col-span-1">
-            <label
-              for="horizonte"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Horizonte (Años)</label
-            >
-            <input
-              type="number"
-              id="horizonte"
-              value="25"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
-            />
-          </div>
-          <!-- Inflación Anual -->
-          <div class="col-span-1">
-            <label
-              for="inflacion"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Inflación Anual (%)</label
-            >
-            <input
-              type="number"
-              step="0.1"
-              id="inflacion"
-              value="2"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
-            />
-          </div>
-          <!-- Tipo Marginal IRPF -->
-          <div class="col-span-1">
-            <label
-              for="irpf"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Tipo Marginal IRPF (%)</label
-            >
-            <input
-              type="number"
-              step="1"
-              id="irpf"
-              value="30"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
-              title="Tu tipo de IRPF más alto. Clave para el Plan de Pensiones."
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- SECCIÓN DE PARÁMETROS POR PRODUCTO -->
-      <div class="bg-white rounded-xl shadow-lg mb-8 border border-gray-200">
-        <div class="p-6 border-b border-gray-200">
-          <div class="flex justify-between items-center">
-            <div>
-              <h2 class="text-2xl font-semibold text-gray-800">
-                Productos de Inversión
-              </h2>
-              <p class="text-gray-600 mt-2">
-                Añade y configura los productos que quieres comparar
+              <input
+                type="number"
+                id="inicial"
+                value="5000"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
+              />
+            </div>
+            <!-- Aportación Mensual -->
+            <div class="col-span-1">
+              <label
+                for="mensual"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Aportación Mensual (€)</label
+              >
+              <input
+                type="number"
+                id="mensual"
+                value="200"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
+                title="Se aplicarán automáticamente los límites legales: PIAS máx 8.000€/año, Plan Pensiones máx 1.500€/año"
+              />
+              <p class="text-xs text-gray-500 mt-1">
+                <span id="limite-info" class="hidden"
+                  >⚠️ Límites aplicados automáticamente</span
+                >
               </p>
             </div>
-            <button
-              id="add-product"
-              class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 flex items-center space-x-2"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-              </svg>
-              <span>Añadir Producto</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="p-6">
-          <div
-            id="products-container"
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            <!-- Los productos se generarán dinámicamente aquí -->
-          </div>
-
-          <div
-            id="no-products-message"
-            class="text-center py-8 text-gray-500 hidden"
-          >
-            <p class="text-lg">No hay productos añadidos</p>
-            <p class="text-sm">Haz clic en "Añadir Producto" para empezar</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Botón de Calcular -->
-      <div class="text-center mb-8">
-        <button
-          id="calcular"
-          class="px-12 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 hover:shadow-xl transform hover:-translate-y-0.5"
-        >
-          <span class="flex items-center space-x-2">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-            </svg>
-            <span>Calcular Proyección</span>
-          </span>
-        </button>
-      </div>
-
-      <!-- SECCIÓN DE RESULTADOS -->
-      <div
-        id="resultados-container"
-        class="bg-white rounded-xl shadow-lg border border-gray-200 hidden"
-      >
-        <div class="p-6 border-b border-gray-200">
-          <h2 class="text-2xl font-semibold text-gray-800">
-            Resultados de la Proyección
-          </h2>
-          <p class="text-gray-600 mt-2">
-            Análisis comparativo de los productos configurados
-          </p>
-        </div>
-
-        <div class="p-6 space-y-8">
-
-        <!-- Gráfico de Comparación (Líneas: Capital vs Tiempo) -->
-        <div class="bg-gray-50 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-            </svg>
-            <span>Evolución del Capital Bruto (vs. Tiempo)</span>
-          </h3>
-          <div class="h-80 bg-white rounded-lg p-4">
-            <canvas id="netoChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Gráfico de Capital Neto Real -->
-        <div class="bg-gray-50 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
-            </svg>
-            <span>Evolución del Capital Neto Final (después de impuestos)</span>
-          </h3>
-          <div class="h-80 bg-white rounded-lg p-4">
-            <canvas id="netoRealChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Resumen Ejecutivo -->
-        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200 p-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-            <span class="text-2xl">🎯</span>
-            <span>Resumen Ejecutivo y Recomendación</span>
-          </h3>
-          <div id="resumen-ejecutivo" class="text-sm space-y-2">
-            <!-- Se rellenará dinámicamente -->
-          </div>
-        </div>
-
-        <!-- Tabla de Resultados -->
-        <div class="bg-gray-50 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
-            <span>Comparativa Detallada</span>
-          </h3>
-          <div class="bg-white rounded-lg overflow-hidden">
-            <div class="overflow-x-auto">
-              <table id="results-table" class="w-full min-w-max text-left">
-                <thead id="table-header">
-                  <tr class="border-b-2 border-gray-300 bg-gray-50">
-                    <th class="p-4 text-sm font-semibold uppercase text-gray-500"
-                      >Métrica</th
-                    >
-                    <!-- Las columnas de productos se generarán dinámicamente -->
-                  </tr>
-                </thead>
-                <tbody id="table-body" class="divide-y divide-gray-200">
-                  <!-- Las filas se generarán dinámicamente -->
-                </tbody>
-              </table>
-
-              <div
-                id="no-results-message"
-                class="text-center py-8 text-gray-500 hidden"
+            <!-- Edad Actual -->
+            <div class="col-span-1">
+              <label
+                for="edad"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Edad Actual</label
               >
-                <p class="text-lg">No hay productos para comparar</p>
-                <p class="text-sm">Añade productos para ver los resultados</p>
+              <input
+                type="number"
+                id="edad"
+                value="35"
+                min="18"
+                max="67"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
+                title="Tu edad actual para calcular fiscalidad correcta de PIAS"
+              />
+            </div>
+            <!-- Horizonte de Inversión -->
+            <div class="col-span-1">
+              <label
+                for="horizonte"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Horizonte (Años)</label
+              >
+              <input
+                type="number"
+                id="horizonte"
+                value="25"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
+              />
+            </div>
+            <!-- Inflación Anual -->
+            <div class="col-span-1">
+              <label
+                for="inflacion"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Inflación Anual (%)</label
+              >
+              <input
+                type="number"
+                step="0.1"
+                id="inflacion"
+                value="2"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
+              />
+            </div>
+            <!-- Tipo Marginal IRPF -->
+            <div class="col-span-1">
+              <label
+                for="irpf"
+                class="block text-sm font-medium text-gray-600 mb-1"
+                >Tipo Marginal IRPF (%)</label
+              >
+              <input
+                type="number"
+                step="1"
+                id="irpf"
+                value="30"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-colors duration-200"
+                title="Tu tipo de IRPF más alto. Clave para el Plan de Pensiones."
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN DE PARÁMETROS POR PRODUCTO -->
+        <div class="bg-white rounded-xl shadow-lg mb-8 border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+              <div>
+                <h2 class="text-2xl font-semibold text-gray-800">
+                  Productos de Inversión
+                </h2>
+                <p class="text-gray-600 mt-2">
+                  Añade y configura los productos que quieres comparar
+                </p>
+              </div>
+              <button
+                id="add-product"
+                class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 flex items-center space-x-2"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <span>Añadir Producto</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div
+              id="products-container"
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <!-- Los productos se generarán dinámicamente aquí -->
+            </div>
+
+            <div
+              id="no-products-message"
+              class="text-center py-8 text-gray-500 hidden"
+            >
+              <p class="text-lg">No hay productos añadidos</p>
+              <p class="text-sm">Haz clic en "Añadir Producto" para empezar</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón de Calcular -->
+        <div class="text-center mb-8">
+          <button
+            id="calcular"
+            class="px-12 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            <span class="flex items-center space-x-2">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                ></path>
+              </svg>
+              <span>Calcular Proyección</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- SECCIÓN DE RESULTADOS -->
+        <div
+          id="resultados-container"
+          class="bg-white rounded-xl shadow-lg border border-gray-200 hidden"
+        >
+          <div class="p-6 border-b border-gray-200">
+            <h2 class="text-2xl font-semibold text-gray-800">
+              Resultados de la Proyección
+            </h2>
+            <p class="text-gray-600 mt-2">
+              Análisis comparativo de los productos configurados
+            </p>
+          </div>
+
+          <div class="p-6 space-y-8">
+            <!-- Gráfico de Comparación (Líneas: Capital vs Tiempo) -->
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h3
+                class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  ></path>
+                </svg>
+                <span>Evolución del Capital Bruto (vs. Tiempo)</span>
+              </h3>
+              <div class="h-80 bg-white rounded-lg p-4">
+                <canvas id="netoChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Gráfico de Capital Neto Real -->
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h3
+                class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2"
+              >
+                <svg
+                  class="w-6 h-6 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                  ></path>
+                </svg>
+                <span
+                  >Evolución del Capital Neto Final (después de impuestos)</span
+                >
+              </h3>
+              <div class="h-80 bg-white rounded-lg p-4">
+                <canvas id="netoRealChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Resumen Ejecutivo -->
+            <div
+              class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200 p-6"
+            >
+              <h3
+                class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2"
+              >
+                <span class="text-2xl">🎯</span>
+                <span>Resumen Ejecutivo y Recomendación</span>
+              </h3>
+              <div id="resumen-ejecutivo" class="text-sm space-y-2">
+                <!-- Se rellenará dinámicamente -->
+              </div>
+            </div>
+
+            <!-- Tabla de Resultados -->
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h3
+                class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2"
+              >
+                <svg
+                  class="w-6 h-6 text-purple-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
+                </svg>
+                <span>Comparativa Detallada</span>
+              </h3>
+              <div class="bg-white rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                  <table id="results-table" class="w-full min-w-max text-left">
+                    <thead id="table-header">
+                      <tr class="border-b-2 border-gray-300 bg-gray-50">
+                        <th
+                          class="p-4 text-sm font-semibold uppercase text-gray-500"
+                          >Métrica</th
+                        >
+                        <!-- Las columnas de productos se generarán dinámicamente -->
+                      </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-200">
+                      <!-- Las filas se generarán dinámicamente -->
+                    </tbody>
+                  </table>
+
+                  <div
+                    id="no-results-message"
+                    class="text-center py-8 text-gray-500 hidden"
+                  >
+                    <p class="text-lg">No hay productos para comparar</p>
+                    <p class="text-sm">
+                      Añade productos para ver los resultados
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notas Aclaratorias -->
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h3
+                class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2"
+              >
+                <span class="text-2xl">📋</span>
+                <span>Notas sobre los Cálculos y Fiscalidad Mejorada</span>
+              </h3>
+              <div class="space-y-4 text-sm text-gray-700">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <p>
+                    <strong class="text-blue-700"
+                      >1. Fondo de Inversión (Fiscalidad Real):</strong
+                    >
+                    Se aplica el <strong>tipo escalonado real</strong> de ahorro
+                    del capital:
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                      <li>19% hasta 6.000€ de ganancia</li>
+                      <li>21% de 6.001€ a 50.000€</li>
+                      <li>23% de 50.001€ a 200.000€</li>
+                      <li>26% a partir de 200.001€</li>
+                    </ul>
+                  </p>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <p>
+                    <strong class="text-green-700"
+                      >2. PIAS (Fiscalidad por Edad Correcta):</strong
+                    >
+                    La exención fiscal depende de la <strong
+                      >edad de rescate</strong
+                    > al contratar renta vitalicia:
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                      <li><strong>Hasta 40 años:</strong> 40% de exención</li>
+                      <li><strong>40-52 años:</strong> 50% de exención</li>
+                      <li><strong>52-67 años:</strong> 60% de exención</li>
+                      <li><strong>67+ años:</strong> 75% de exención</li>
+                    </ul>
+                    <p class="mt-2 text-xs">
+                      Solo las ganancias no exentas tributan al 19% (primer
+                      tramo de ahorro).
+                    </p>
+                  </p>
+                </div>
+
+                <div
+                  class="bg-purple-50 p-4 rounded-lg border border-purple-200"
+                >
+                  <p>
+                    <strong class="text-purple-700"
+                      >3. Plan de Pensiones + Límites Legales:</strong
+                    >
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                      <li>
+                        <strong>Límite máximo:</strong> 1.500€/año (aplicado automáticamente)
+                      </li>
+                      <li>
+                        <strong>Ventaja:</strong> Reducción inmediata en IRPF por
+                        cada aportación
+                      </li>
+                      <li>
+                        <strong>Desventaja:</strong> TODO el capital rescatado tributa
+                        como rendimiento del trabajo
+                      </li>
+                      <li>
+                        <strong>Cálculo neto:</strong> (Capital - Impuestos rescate)
+                        + Ahorro fiscal acumulado
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+
+                <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                  <p>
+                    <strong class="text-amber-700"
+                      >4. Límites Automáticos Aplicados:</strong
+                    >
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                      <li><strong>PIAS:</strong> Máximo 8.000€/año</li>
+                      <li>
+                        <strong>Plan de Pensiones:</strong> Máximo 1.500€/año
+                      </li>
+                      <li>
+                        El simulador ajusta automáticamente las aportaciones si
+                        exceden estos límites
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <p>
+                    <strong class="text-gray-700"
+                      >5. Nuevas Funcionalidades:</strong
+                    >
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                      <li>
+                        <strong>Fiscalidad real</strong> según tramos y edad
+                      </li>
+                      <li>
+                        <strong>Límites legales</strong> aplicados automáticamente
+                      </li>
+                      <li>
+                        <strong>Doble gráfico:</strong> Capital bruto vs Capital
+                        neto final
+                      </li>
+                      <li>
+                        <strong>Resumen ejecutivo</strong> con recomendación automática
+                      </li>
+                      <li>
+                        <strong>Alertas inteligentes</strong> sobre límites y exenciones
+                      </li>
+                    </ul>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Notas Aclaratorias -->
-        <div class="bg-gray-50 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-            <span class="text-2xl">📋</span>
-            <span>Notas sobre los Cálculos y Fiscalidad Mejorada</span>
-          </h3>
-          <div class="space-y-4 text-sm text-gray-700">
-            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-              <p>
-                <strong class="text-blue-700"
-                  >1. Fondo de Inversión (Fiscalidad Real):</strong
-                >
-                Se aplica el <strong>tipo escalonado real</strong> de ahorro del
-                capital:
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li>19% hasta 6.000€ de ganancia</li>
-                  <li>21% de 6.001€ a 50.000€</li>
-                  <li>23% de 50.001€ a 200.000€</li>
-                  <li>26% a partir de 200.001€</li>
-                </ul>
-              </p>
-            </div>
-
-            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-              <p>
-                <strong class="text-green-700"
-                  >2. PIAS (Fiscalidad por Edad Correcta):</strong
-                >
-                La exención fiscal depende de la <strong>edad de rescate</strong
-                > al contratar renta vitalicia:
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li><strong>Hasta 40 años:</strong> 40% de exención</li>
-                  <li><strong>40-52 años:</strong> 50% de exención</li>
-                  <li><strong>52-67 años:</strong> 60% de exención</li>
-                  <li><strong>67+ años:</strong> 75% de exención</li>
-                </ul>
-                <p class="mt-2 text-xs">
-                  Solo las ganancias no exentas tributan al 19% (primer tramo de
-                  ahorro).
-                </p>
-              </p>
-            </div>
-
-            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
-              <p>
-                <strong class="text-purple-700"
-                  >3. Plan de Pensiones + Límites Legales:</strong
-                >
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li>
-                    <strong>Límite máximo:</strong> 1.500€/año (aplicado automáticamente)
-                  </li>
-                  <li>
-                    <strong>Ventaja:</strong> Reducción inmediata en IRPF por cada
-                    aportación
-                  </li>
-                  <li>
-                    <strong>Desventaja:</strong> TODO el capital rescatado tributa
-                    como rendimiento del trabajo
-                  </li>
-                  <li>
-                    <strong>Cálculo neto:</strong> (Capital - Impuestos rescate)
-                    + Ahorro fiscal acumulado
-                  </li>
-                </ul>
-              </p>
-            </div>
-
-            <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
-              <p>
-                <strong class="text-amber-700"
-                  >4. Límites Automáticos Aplicados:</strong
-                >
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li><strong>PIAS:</strong> Máximo 8.000€/año</li>
-                  <li><strong>Plan de Pensiones:</strong> Máximo 1.500€/año</li>
-                  <li>
-                    El simulador ajusta automáticamente las aportaciones si
-                    exceden estos límites
-                  </li>
-                </ul>
-              </p>
-            </div>
-
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <p>
-                <strong class="text-gray-700">5. Nuevas Funcionalidades:</strong
-                >
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li><strong>Fiscalidad real</strong> según tramos y edad</li>
-                  <li>
-                    <strong>Límites legales</strong> aplicados automáticamente
-                  </li>
-                  <li>
-                    <strong>Doble gráfico:</strong> Capital bruto vs Capital neto
-                    final
-                  </li>
-                  <li>
-                    <strong>Resumen ejecutivo</strong> con recomendación automática
-                  </li>
-                  <li>
-                    <strong>Alertas inteligentes</strong> sobre límites y exenciones
-                  </li>
-                </ul>
-              </p>
-            </div>
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 mt-16">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">
+              © 2025 Comparador de Vehículos de Inversión. Herramienta
+              educativa para comparar opciones de inversión.
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+              Los resultados son orientativos y no constituyen asesoramiento
+              financiero.
+            </p>
           </div>
-        </div>
-        </div>
+        </footer>
       </div>
 
-      <!-- Footer -->
-      <footer class="bg-gray-800 text-white py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p class="text-gray-400">
-            © 2025 Comparador de Vehículos de Inversión. Herramienta educativa
-            para comparar opciones de inversión.
-          </p>
-          <p class="text-sm text-gray-500 mt-2">
-            Los resultados son orientativos y no constituyen asesoramiento
-            financiero.
-          </p>
-        </div>
-      </footer>
-    </div>
+      <script is:inline>
+        // Variables globales para los gráficos y productos
+        let netoChart = null;
+        let netoRealChart = null;
+        let products = [];
+        let nextProductId = 1;
 
-    <script is:inline>
-      // Variables globales para los gráficos y productos
-      let netoChart = null;
-      let netoRealChart = null;
-      let products = [];
-      let nextProductId = 1;
-
-      // Definiciones de tipos de productos
-      const productTypes = {
-        "fondo-inversion": {
-          name: "Fondo de Inversión",
-          color: "blue",
-          fields: [
-            {
-              id: "rentabilidad",
-              label: "Rentabilidad Bruta (%)",
-              value: "6.0",
-              step: "0.1",
-            },
-            {
-              id: "gestion",
-              label: "Com. Gestión (%)",
-              value: "1.5",
-              step: "0.01",
-            },
-            {
-              id: "deposito",
-              label: "Com. Depósito (%)",
-              value: "0.15",
-              step: "0.01",
-            },
-          ],
-        },
-        pias: {
-          name: "PIAS (Seguro de Ahorro)",
-          color: "green",
-          fields: [
-            {
-              id: "rentabilidad",
-              label: "Rentabilidad Bruta (%)",
-              value: "4.5",
-              step: "0.1",
-            },
-            {
-              id: "gestion",
-              label: "Com. Gestión / Póliza (%)",
-              value: "1.75",
-              step: "0.01",
-            },
-            {
-              id: "seguro",
-              label: "Coste Seguro (anual €)",
-              value: "30",
-              step: "1",
-            },
-          ],
-        },
-        "plan-pensiones": {
-          name: "Plan de Pensiones",
-          color: "purple",
-          fields: [
-            {
-              id: "rentabilidad",
-              label: "Rentabilidad Bruta (%)",
-              value: "5.0",
-              step: "0.1",
-            },
-            {
-              id: "gestion",
-              label: "Com. Gestión (%)",
-              value: "1.25",
-              step: "0.01",
-            },
-            {
-              id: "deposito",
-              label: "Com. Depósito (%)",
-              value: "0.15",
-              step: "0.01",
-            },
-          ],
-        },
-      };
-
-      // Colores para los gráficos
-      const chartColors = [
-        { border: "rgb(37, 99, 235)", bg: "rgba(37, 99, 235, 0.1)" }, // Blue
-        { border: "rgb(22, 163, 74)", bg: "rgba(22, 163, 74, 0.1)" }, // Green
-        { border: "rgb(126, 34, 206)", bg: "rgba(126, 34, 206, 0.1)" }, // Purple
-        { border: "rgb(239, 68, 68)", bg: "rgba(239, 68, 68, 0.1)" }, // Red
-        { border: "rgb(245, 158, 11)", bg: "rgba(245, 158, 11, 0.1)" }, // Amber
-        { border: "rgb(59, 130, 246)", bg: "rgba(59, 130, 246, 0.1)" }, // Light Blue
-        { border: "rgb(16, 185, 129)", bg: "rgba(16, 185, 129, 0.1)" }, // Emerald
-        { border: "rgb(139, 92, 246)", bg: "rgba(139, 92, 246, 0.1)" }, // Violet
-      ];
-
-      /**
-       * Calcula el impuesto escalonado sobre ganancias de capital
-       */
-      function calcularImpuestoEscalonado(ganancia) {
-        if (ganancia <= 0) return 0;
-
-        let impuesto = 0;
-        let restante = ganancia;
-
-        const tramo1 = Math.min(restante, 6000);
-        impuesto += tramo1 * 0.19;
-        restante -= tramo1;
-
-        if (restante <= 0) return impuesto;
-
-        const tramo2 = Math.min(restante, 44000);
-        impuesto += tramo2 * 0.21;
-        restante -= tramo2;
-
-        if (restante <= 0) return impuesto;
-
-        const tramo3 = Math.min(restante, 150000);
-        impuesto += tramo3 * 0.23;
-        restante -= tramo3;
-
-        if (restante <= 0) return impuesto;
-
-        impuesto += restante * 0.26;
-        return impuesto;
-      }
-
-      /**
-       * Calcula el porcentaje de exención de PIAS según la edad de rescate
-       */
-      function calcularExencionPIAS(edadRescate) {
-        if (edadRescate < 40) return 0.4;
-        if (edadRescate < 52) return 0.5;
-        if (edadRescate < 67) return 0.6;
-        return 0.75;
-      }
-
-      /**
-       * Aplica límites legales a las aportaciones
-       */
-      function aplicarLimites(aportacionAnual, tipoProducto) {
-        const limites = {
-          pias: 8000,
-          "plan-pensiones": 1500,
+        // Definiciones de tipos de productos
+        const productTypes = {
+          "fondo-inversion": {
+            name: "Fondo de Inversión",
+            color: "blue",
+            fields: [
+              {
+                id: "rentabilidad",
+                label: "Rentabilidad Bruta (%)",
+                value: "6.0",
+                step: "0.1",
+              },
+              {
+                id: "gestion",
+                label: "Com. Gestión (%)",
+                value: "1.5",
+                step: "0.01",
+              },
+              {
+                id: "deposito",
+                label: "Com. Depósito (%)",
+                value: "0.15",
+                step: "0.01",
+              },
+            ],
+          },
+          pias: {
+            name: "PIAS (Seguro de Ahorro)",
+            color: "green",
+            fields: [
+              {
+                id: "rentabilidad",
+                label: "Rentabilidad Bruta (%)",
+                value: "4.5",
+                step: "0.1",
+              },
+              {
+                id: "gestion",
+                label: "Com. Gestión / Póliza (%)",
+                value: "1.75",
+                step: "0.01",
+              },
+              {
+                id: "seguro",
+                label: "Coste Seguro (anual €)",
+                value: "30",
+                step: "1",
+              },
+            ],
+          },
+          "plan-pensiones": {
+            name: "Plan de Pensiones",
+            color: "purple",
+            fields: [
+              {
+                id: "rentabilidad",
+                label: "Rentabilidad Bruta (%)",
+                value: "5.0",
+                step: "0.1",
+              },
+              {
+                id: "gestion",
+                label: "Com. Gestión (%)",
+                value: "1.25",
+                step: "0.01",
+              },
+              {
+                id: "deposito",
+                label: "Com. Depósito (%)",
+                value: "0.15",
+                step: "0.01",
+              },
+            ],
+          },
         };
-        return Math.min(
-          aportacionAnual,
-          limites[tipoProducto] || aportacionAnual
-        );
-      }
 
-      /**
-       * Crea una nueva tarjeta de producto
-       */
-      function createProductCard(product) {
-        const type = productTypes[product.type];
-        const colorClass = type.color;
+        // Colores para los gráficos
+        const chartColors = [
+          { border: "rgb(37, 99, 235)", bg: "rgba(37, 99, 235, 0.1)" }, // Blue
+          { border: "rgb(22, 163, 74)", bg: "rgba(22, 163, 74, 0.1)" }, // Green
+          { border: "rgb(126, 34, 206)", bg: "rgba(126, 34, 206, 0.1)" }, // Purple
+          { border: "rgb(239, 68, 68)", bg: "rgba(239, 68, 68, 0.1)" }, // Red
+          { border: "rgb(245, 158, 11)", bg: "rgba(245, 158, 11, 0.1)" }, // Amber
+          { border: "rgb(59, 130, 246)", bg: "rgba(59, 130, 246, 0.1)" }, // Light Blue
+          { border: "rgb(16, 185, 129)", bg: "rgba(16, 185, 129, 0.1)" }, // Emerald
+          { border: "rgb(139, 92, 246)", bg: "rgba(139, 92, 246, 0.1)" }, // Violet
+        ];
 
-        let fieldsHtml = "";
-        type.fields.forEach((field) => {
-          const fieldId = `${product.id}_${field.id}`;
-          const fieldValue = product.values[field.id] || field.value;
-          fieldsHtml += `
+        /**
+         * Calcula el impuesto escalonado sobre ganancias de capital
+         */
+        function calcularImpuestoEscalonado(ganancia) {
+          if (ganancia <= 0) return 0;
+
+          let impuesto = 0;
+          let restante = ganancia;
+
+          const tramo1 = Math.min(restante, 6000);
+          impuesto += tramo1 * 0.19;
+          restante -= tramo1;
+
+          if (restante <= 0) return impuesto;
+
+          const tramo2 = Math.min(restante, 44000);
+          impuesto += tramo2 * 0.21;
+          restante -= tramo2;
+
+          if (restante <= 0) return impuesto;
+
+          const tramo3 = Math.min(restante, 150000);
+          impuesto += tramo3 * 0.23;
+          restante -= tramo3;
+
+          if (restante <= 0) return impuesto;
+
+          impuesto += restante * 0.26;
+          return impuesto;
+        }
+
+        /**
+         * Calcula el porcentaje de exención de PIAS según la edad de rescate
+         */
+        function calcularExencionPIAS(edadRescate) {
+          if (edadRescate < 40) return 0.4;
+          if (edadRescate < 52) return 0.5;
+          if (edadRescate < 67) return 0.6;
+          return 0.75;
+        }
+
+        /**
+         * Aplica límites legales a las aportaciones
+         */
+        function aplicarLimites(aportacionAnual, tipoProducto) {
+          const limites = {
+            pias: 8000,
+            "plan-pensiones": 1500,
+          };
+          return Math.min(
+            aportacionAnual,
+            limites[tipoProducto] || aportacionAnual
+          );
+        }
+
+        /**
+         * Crea una nueva tarjeta de producto
+         */
+        function createProductCard(product) {
+          const type = productTypes[product.type];
+          const colorClass = type.color;
+
+          let fieldsHtml = "";
+          type.fields.forEach((field) => {
+            const fieldId = `${product.id}_${field.id}`;
+            const fieldValue = product.values[field.id] || field.value;
+            fieldsHtml += `
             <div>
               <label for="${fieldId}" class="block text-sm font-medium text-gray-700 mb-2">
                 ${field.label}
@@ -632,9 +705,9 @@
               />
             </div>
           `;
-        });
+          });
 
-        return `
+          return `
           <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300" data-product-id="${product.id}">
             <div class="bg-${colorClass}-50 border-b border-${colorClass}-100 p-4">
               <div class="flex justify-between items-start">
@@ -671,448 +744,452 @@
             </div>
           </div>
         `;
-      }
-
-      /**
-       * Añade un nuevo producto
-       */
-      function addProduct() {
-        const product = {
-          id: `product_${nextProductId}`,
-          name: `Producto ${nextProductId}`,
-          type: "fondo-inversion",
-          values: {},
-        };
-
-        products.push(product);
-        nextProductId++;
-        renderProducts();
-        updateNoProductsMessage();
-      }
-
-      /**
-       * Elimina un producto
-       */
-      function removeProduct(productId) {
-        products = products.filter((p) => p.id !== productId);
-        renderProducts();
-        updateNoProductsMessage();
-
-        // Limpiar resultados si no hay productos
-        if (products.length === 0) {
-          document
-            .getElementById("resultados-container")
-            .classList.add("hidden");
         }
-      }
 
-      /**
-       * Cambia el tipo de un producto
-       */
-      function changeProductType(productId, newType) {
-        const product = products.find((p) => p.id === productId);
-        if (product) {
-          product.type = newType;
-          product.values = {}; // Reset values when changing type
+        /**
+         * Añade un nuevo producto
+         */
+        function addProduct() {
+          const product = {
+            id: `product_${nextProductId}`,
+            name: `Producto ${nextProductId}`,
+            type: "fondo-inversion",
+            values: {},
+          };
+
+          products.push(product);
+          nextProductId++;
           renderProducts();
+          updateNoProductsMessage();
         }
-      }
 
-      /**
-       * Actualiza el valor de un campo de producto
-       */
-      function updateProductValue(productId, fieldId, value) {
-        const product = products.find((p) => p.id === productId);
-        if (product) {
-          product.values[fieldId] = value;
-        }
-      }
+        /**
+         * Elimina un producto
+         */
+        function removeProduct(productId) {
+          products = products.filter((p) => p.id !== productId);
+          renderProducts();
+          updateNoProductsMessage();
 
-      /**
-       * Renderiza todos los productos
-       */
-      function renderProducts() {
-        const container = document.getElementById("products-container");
-        container.innerHTML = products
-          .map((product) => createProductCard(product))
-          .join("");
-      }
-
-      /**
-       * Actualiza el mensaje cuando no hay productos
-       */
-      function updateNoProductsMessage() {
-        const message = document.getElementById("no-products-message");
-        if (products.length === 0) {
-          message.classList.remove("hidden");
-        } else {
-          message.classList.add("hidden");
-        }
-      }
-
-      /**
-       * Calcula los resultados para un producto específico
-       */
-      function calculateProductResult(product, globalParams) {
-        const type = productTypes[product.type];
-        const values = product.values;
-
-        const rentabilidad =
-          parseFloat(
-            values.rentabilidad ||
-              type.fields.find((f) => f.id === "rentabilidad").value
-          ) / 100;
-        const rentabilidadMensual = Math.pow(1 + rentabilidad, 1 / 12) - 1;
-
-        // Aportaciones con límites
-        const aportacionAnual = aplicarLimites(
-          globalParams.mensual * 12,
-          product.type
-        );
-        const limitesAplicados = aportacionAnual < globalParams.mensual * 12;
-
-        // Simulación
-        let capital = globalParams.inicial;
-        let ahorroFiscal = 0;
-
-        let capitalAnual = [globalParams.inicial];
-
-        for (let ano = 0; ano < globalParams.horizonte; ano++) {
-          // Ahorro fiscal para planes de pensiones
-          if (product.type === "plan-pensiones") {
-            ahorroFiscal += aportacionAnual * globalParams.irpf;
+          // Limpiar resultados si no hay productos
+          if (products.length === 0) {
+            document
+              .getElementById("resultados-container")
+              .classList.add("hidden");
           }
-
-          // Simulación mensual
-          for (let mes = 0; mes < 12; mes++) {
-            const aportacionMensual = aportacionAnual / 12;
-            capital = (capital + aportacionMensual) * (1 + rentabilidadMensual);
-          }
-
-          // Aplicar comisiones anuales
-          if (product.type === "fondo-inversion") {
-            const gestion =
-              parseFloat(
-                values.gestion ||
-                  type.fields.find((f) => f.id === "gestion").value
-              ) / 100;
-            const deposito =
-              parseFloat(
-                values.deposito ||
-                  type.fields.find((f) => f.id === "deposito").value
-              ) / 100;
-            capital *= 1 - gestion - deposito;
-          } else if (product.type === "pias") {
-            const gestion =
-              parseFloat(
-                values.gestion ||
-                  type.fields.find((f) => f.id === "gestion").value
-              ) / 100;
-            const seguro = parseFloat(
-              values.seguro || type.fields.find((f) => f.id === "seguro").value
-            );
-            capital = capital * (1 - gestion) - seguro;
-          } else if (product.type === "plan-pensiones") {
-            const gestion =
-              parseFloat(
-                values.gestion ||
-                  type.fields.find((f) => f.id === "gestion").value
-              ) / 100;
-            const deposito =
-              parseFloat(
-                values.deposito ||
-                  type.fields.find((f) => f.id === "deposito").value
-              ) / 100;
-            capital *= 1 - gestion - deposito;
-          }
-
-          capitalAnual.push(capital);
         }
 
-        // Cálculo de impuestos y neto
-        const totalAportado =
-          globalParams.inicial + aportacionAnual * globalParams.horizonte;
-        const ganancias = capital - totalAportado;
-
-        let impuestos = 0;
-        let neto = 0;
-
-        if (product.type === "fondo-inversion") {
-          impuestos = calcularImpuestoEscalonado(ganancias);
-          neto = capital - impuestos;
-        } else if (product.type === "pias") {
-          const exencion = calcularExencionPIAS(globalParams.edadRescate);
-          impuestos = Math.max(0, ganancias * (1 - exencion) * 0.19);
-          neto = capital - impuestos;
-        } else if (product.type === "plan-pensiones") {
-          impuestos = capital * globalParams.irpf;
-          neto = capital - impuestos + ahorroFiscal;
-        }
-
-        const netoReal =
-          neto / Math.pow(1 + globalParams.inflacion, globalParams.horizonte);
-
-        return {
-          capital,
-          impuestos,
-          neto,
-          netoReal,
-          ahorroFiscal,
-          capitalAnual,
-          limitesAplicados,
-          totalAportado,
-        };
-      }
-
-      /**
-       * Actualiza los gráficos
-       */
-      function updateCharts(years, results) {
-        updateBrutoChart(years, results);
-        updateNetoChart(years, results);
-      }
-
-      function updateBrutoChart(years, results) {
-        const ctx = document.getElementById("netoChart").getContext("2d");
-
-        const datasets = results.map((result, index) => ({
-          label: `${products[index].name} (Bruto)`,
-          data: result.capitalAnual,
-          borderColor: chartColors[index % chartColors.length].border,
-          backgroundColor: chartColors[index % chartColors.length].bg,
-          tension: 0.3,
-          pointRadius: 2,
-          fill: false,
-        }));
-
-        const data = { labels: years, datasets };
-        const options = {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: true, position: "top" },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  return `${context.dataset.label}: ${new Intl.NumberFormat(
-                    "es-ES",
-                    {
-                      style: "currency",
-                      currency: "EUR",
-                      minimumFractionDigits: 0,
-                    }
-                  ).format(context.raw)}`;
-                },
-              },
-            },
-          },
-          scales: {
-            x: { title: { display: true, text: "Tiempo (Años)" } },
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: "Capital Bruto (€)" },
-              ticks: {
-                callback: function (value) {
-                  return new Intl.NumberFormat("es-ES", {
-                    style: "currency",
-                    currency: "EUR",
-                    minimumFractionDigits: 0,
-                  }).format(value);
-                },
-              },
-            },
-          },
-        };
-
-        if (netoChart) netoChart.destroy();
-        netoChart = new Chart(ctx, { type: "line", data, options });
-      }
-
-      function updateNetoChart(years, results) {
-        const ctx = document.getElementById("netoRealChart").getContext("2d");
-
-        // Calculate neto progression
-        const netoProgression = results.map((result) => {
-          const progression = [result.totalAportado * 0]; // Start from initial contribution
-          // This is simplified - you might want to calculate year-by-year neto values
-          for (let i = 1; i <= years.length - 1; i++) {
-            progression.push(result.neto * (i / (years.length - 1)));
+        /**
+         * Cambia el tipo de un producto
+         */
+        function changeProductType(productId, newType) {
+          const product = products.find((p) => p.id === productId);
+          if (product) {
+            product.type = newType;
+            product.values = {}; // Reset values when changing type
+            renderProducts();
           }
-          return progression;
-        });
-
-        const datasets = results.map((result, index) => ({
-          label: `${products[index].name} (Neto)`,
-          data: netoProgression[index],
-          borderColor: chartColors[index % chartColors.length].border,
-          backgroundColor: chartColors[index % chartColors.length].bg,
-          tension: 0.3,
-          pointRadius: 3,
-          fill: false,
-          borderWidth: 3,
-        }));
-
-        const data = { labels: years, datasets };
-        const options = {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: true, position: "top" },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  return `${context.dataset.label}: ${new Intl.NumberFormat(
-                    "es-ES",
-                    {
-                      style: "currency",
-                      currency: "EUR",
-                      minimumFractionDigits: 0,
-                    }
-                  ).format(context.raw)}`;
-                },
-              },
-            },
-          },
-          scales: {
-            x: { title: { display: true, text: "Tiempo (Años)" } },
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: "Capital Neto (€)" },
-              ticks: {
-                callback: function (value) {
-                  return new Intl.NumberFormat("es-ES", {
-                    style: "currency",
-                    currency: "EUR",
-                    minimumFractionDigits: 0,
-                  }).format(value);
-                },
-              },
-            },
-          },
-        };
-
-        if (netoRealChart) netoRealChart.destroy();
-        netoRealChart = new Chart(ctx, { type: "line", data, options });
-      }
-
-      /**
-       * Actualiza la tabla de resultados
-       */
-      function updateResultsTable(results) {
-        const header = document.getElementById("table-header");
-        const body = document.getElementById("table-body");
-        const noResultsMessage = document.getElementById("no-results-message");
-
-        if (products.length === 0) {
-          noResultsMessage.classList.remove("hidden");
-          header.style.display = "none";
-          body.style.display = "none";
-          return;
         }
 
-        noResultsMessage.classList.add("hidden");
-        header.style.display = "";
-        body.style.display = "";
+        /**
+         * Actualiza el valor de un campo de producto
+         */
+        function updateProductValue(productId, fieldId, value) {
+          const product = products.find((p) => p.id === productId);
+          if (product) {
+            product.values[fieldId] = value;
+          }
+        }
 
-        // Generate header
-        let headerHtml =
-          '<th class="p-4 text-sm font-semibold uppercase text-gray-600 bg-gray-50">Métrica</th>';
-        products.forEach((product, index) => {
-          const colorClass = productTypes[product.type].color;
-          headerHtml += `<th class="p-4 text-sm font-semibold uppercase text-${colorClass}-700 text-right bg-gray-50">${product.name}</th>`;
-        });
-        header.innerHTML = `<tr class="border-b-2 border-gray-300">${headerHtml}</tr>`;
+        /**
+         * Renderiza todos los productos
+         */
+        function renderProducts() {
+          const container = document.getElementById("products-container");
+          container.innerHTML = products
+            .map((product) => createProductCard(product))
+            .join("");
+        }
 
-        // Generate body
-        const formatter = new Intl.NumberFormat("es-ES", {
-          style: "currency",
-          currency: "EUR",
-        });
-
-        const metrics = [
-          {
-            label: "Total Aportado",
-            getValue: (result) => formatter.format(result.totalAportado),
-            isUnique: true,
-          },
-          {
-            label: "Capital Bruto (antes de impuestos)",
-            getValue: (result) => formatter.format(result.capital),
-          },
-          {
-            label: "Ahorro Fiscal Acumulado",
-            getValue: (result, index) => {
-              if (products[index].type === "plan-pensiones") {
-                return `+${formatter.format(result.ahorroFiscal)}`;
-              }
-              return "N/A";
-            },
-            rowClass: "bg-purple-50",
-          },
-          {
-            label: "Impuestos Estimados en Rescate",
-            getValue: (result) => `-${formatter.format(result.impuestos)}`,
-            rowClass: "bg-red-50",
-          },
-          {
-            label: "Capital Neto Final",
-            getValue: (result) => formatter.format(result.neto),
-            rowClass: "border-t-2 border-gray-300",
-            isImportant: true,
-          },
-          {
-            label: "Capital Neto (Poder adquisitivo hoy)",
-            getValue: (result) => formatter.format(result.netoReal),
-            rowClass: "bg-gray-100",
-          },
-        ];
-
-        let bodyHtml = "";
-        metrics.forEach((metric) => {
-          let rowHtml = `<td class="p-4 font-medium ${metric.isImportant ? "text-lg text-gray-900" : ""}">${metric.label}</td>`;
-
-          if (metric.isUnique) {
-            // For metrics that are the same across all products
-            rowHtml += `<td class="p-4 font-medium text-gray-600 text-right" colspan="${products.length}">${metric.getValue(results[0])}</td>`;
+        /**
+         * Actualiza el mensaje cuando no hay productos
+         */
+        function updateNoProductsMessage() {
+          const message = document.getElementById("no-products-message");
+          if (products.length === 0) {
+            message.classList.remove("hidden");
           } else {
-            results.forEach((result, index) => {
-              const colorClass = productTypes[products[index].type].color;
-              const value = metric.getValue(result, index);
-              rowHtml += `<td class="p-4 font-medium ${metric.isImportant ? `text-lg text-${colorClass}-800` : ""} text-right">${value}</td>`;
-            });
+            message.classList.add("hidden");
+          }
+        }
+
+        /**
+         * Calcula los resultados para un producto específico
+         */
+        function calculateProductResult(product, globalParams) {
+          const type = productTypes[product.type];
+          const values = product.values;
+
+          const rentabilidad =
+            parseFloat(
+              values.rentabilidad ||
+                type.fields.find((f) => f.id === "rentabilidad").value
+            ) / 100;
+          const rentabilidadMensual = Math.pow(1 + rentabilidad, 1 / 12) - 1;
+
+          // Aportaciones con límites
+          const aportacionAnual = aplicarLimites(
+            globalParams.mensual * 12,
+            product.type
+          );
+          const limitesAplicados = aportacionAnual < globalParams.mensual * 12;
+
+          // Simulación
+          let capital = globalParams.inicial;
+          let ahorroFiscal = 0;
+
+          let capitalAnual = [globalParams.inicial];
+
+          for (let ano = 0; ano < globalParams.horizonte; ano++) {
+            // Ahorro fiscal para planes de pensiones
+            if (product.type === "plan-pensiones") {
+              ahorroFiscal += aportacionAnual * globalParams.irpf;
+            }
+
+            // Simulación mensual
+            for (let mes = 0; mes < 12; mes++) {
+              const aportacionMensual = aportacionAnual / 12;
+              capital =
+                (capital + aportacionMensual) * (1 + rentabilidadMensual);
+            }
+
+            // Aplicar comisiones anuales
+            if (product.type === "fondo-inversion") {
+              const gestion =
+                parseFloat(
+                  values.gestion ||
+                    type.fields.find((f) => f.id === "gestion").value
+                ) / 100;
+              const deposito =
+                parseFloat(
+                  values.deposito ||
+                    type.fields.find((f) => f.id === "deposito").value
+                ) / 100;
+              capital *= 1 - gestion - deposito;
+            } else if (product.type === "pias") {
+              const gestion =
+                parseFloat(
+                  values.gestion ||
+                    type.fields.find((f) => f.id === "gestion").value
+                ) / 100;
+              const seguro = parseFloat(
+                values.seguro ||
+                  type.fields.find((f) => f.id === "seguro").value
+              );
+              capital = capital * (1 - gestion) - seguro;
+            } else if (product.type === "plan-pensiones") {
+              const gestion =
+                parseFloat(
+                  values.gestion ||
+                    type.fields.find((f) => f.id === "gestion").value
+                ) / 100;
+              const deposito =
+                parseFloat(
+                  values.deposito ||
+                    type.fields.find((f) => f.id === "deposito").value
+                ) / 100;
+              capital *= 1 - gestion - deposito;
+            }
+
+            capitalAnual.push(capital);
           }
 
-          bodyHtml += `<tr class="hover:bg-gray-50 ${metric.rowClass || ""}">${rowHtml}</tr>`;
-        });
+          // Cálculo de impuestos y neto
+          const totalAportado =
+            globalParams.inicial + aportacionAnual * globalParams.horizonte;
+          const ganancias = capital - totalAportado;
 
-        body.innerHTML = bodyHtml;
-      }
+          let impuestos = 0;
+          let neto = 0;
 
-      /**
-       * Genera el resumen ejecutivo
-       */
-      function generateExecutiveSummary(results) {
-        if (products.length === 0) return;
-
-        // Find best product
-        let best = { index: 0, value: results[0].neto };
-        results.forEach((result, index) => {
-          if (result.neto > best.value) {
-            best = { index, value: result.neto };
+          if (product.type === "fondo-inversion") {
+            impuestos = calcularImpuestoEscalonado(ganancias);
+            neto = capital - impuestos;
+          } else if (product.type === "pias") {
+            const exencion = calcularExencionPIAS(globalParams.edadRescate);
+            impuestos = Math.max(0, ganancias * (1 - exencion) * 0.19);
+            neto = capital - impuestos;
+          } else if (product.type === "plan-pensiones") {
+            impuestos = capital * globalParams.irpf;
+            neto = capital - impuestos + ahorroFiscal;
           }
-        });
 
-        const bestProduct = products[best.index];
-        const bestResult = results[best.index];
-        const worstValue = Math.min(...results.map((r) => r.neto));
-        const difference = best.value - worstValue;
-        const totalReturn =
-          ((best.value - bestResult.totalAportado) / bestResult.totalAportado) *
-          100;
+          const netoReal =
+            neto / Math.pow(1 + globalParams.inflacion, globalParams.horizonte);
 
-        const colorClass = productTypes[bestProduct.type].color;
+          return {
+            capital,
+            impuestos,
+            neto,
+            netoReal,
+            ahorroFiscal,
+            capitalAnual,
+            limitesAplicados,
+            totalAportado,
+          };
+        }
 
-        let html = `
+        /**
+         * Actualiza los gráficos
+         */
+        function updateCharts(years, results) {
+          updateBrutoChart(years, results);
+          updateNetoChart(years, results);
+        }
+
+        function updateBrutoChart(years, results) {
+          const ctx = document.getElementById("netoChart").getContext("2d");
+
+          const datasets = results.map((result, index) => ({
+            label: `${products[index].name} (Bruto)`,
+            data: result.capitalAnual,
+            borderColor: chartColors[index % chartColors.length].border,
+            backgroundColor: chartColors[index % chartColors.length].bg,
+            tension: 0.3,
+            pointRadius: 2,
+            fill: false,
+          }));
+
+          const data = { labels: years, datasets };
+          const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: true, position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return `${context.dataset.label}: ${new Intl.NumberFormat(
+                      "es-ES",
+                      {
+                        style: "currency",
+                        currency: "EUR",
+                        minimumFractionDigits: 0,
+                      }
+                    ).format(context.raw)}`;
+                  },
+                },
+              },
+            },
+            scales: {
+              x: { title: { display: true, text: "Tiempo (Años)" } },
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: "Capital Bruto (€)" },
+                ticks: {
+                  callback: function (value) {
+                    return new Intl.NumberFormat("es-ES", {
+                      style: "currency",
+                      currency: "EUR",
+                      minimumFractionDigits: 0,
+                    }).format(value);
+                  },
+                },
+              },
+            },
+          };
+
+          if (netoChart) netoChart.destroy();
+          netoChart = new Chart(ctx, { type: "line", data, options });
+        }
+
+        function updateNetoChart(years, results) {
+          const ctx = document.getElementById("netoRealChart").getContext("2d");
+
+          // Calculate neto progression
+          const netoProgression = results.map((result) => {
+            const progression = [result.totalAportado * 0]; // Start from initial contribution
+            // This is simplified - you might want to calculate year-by-year neto values
+            for (let i = 1; i <= years.length - 1; i++) {
+              progression.push(result.neto * (i / (years.length - 1)));
+            }
+            return progression;
+          });
+
+          const datasets = results.map((result, index) => ({
+            label: `${products[index].name} (Neto)`,
+            data: netoProgression[index],
+            borderColor: chartColors[index % chartColors.length].border,
+            backgroundColor: chartColors[index % chartColors.length].bg,
+            tension: 0.3,
+            pointRadius: 3,
+            fill: false,
+            borderWidth: 3,
+          }));
+
+          const data = { labels: years, datasets };
+          const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: true, position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return `${context.dataset.label}: ${new Intl.NumberFormat(
+                      "es-ES",
+                      {
+                        style: "currency",
+                        currency: "EUR",
+                        minimumFractionDigits: 0,
+                      }
+                    ).format(context.raw)}`;
+                  },
+                },
+              },
+            },
+            scales: {
+              x: { title: { display: true, text: "Tiempo (Años)" } },
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: "Capital Neto (€)" },
+                ticks: {
+                  callback: function (value) {
+                    return new Intl.NumberFormat("es-ES", {
+                      style: "currency",
+                      currency: "EUR",
+                      minimumFractionDigits: 0,
+                    }).format(value);
+                  },
+                },
+              },
+            },
+          };
+
+          if (netoRealChart) netoRealChart.destroy();
+          netoRealChart = new Chart(ctx, { type: "line", data, options });
+        }
+
+        /**
+         * Actualiza la tabla de resultados
+         */
+        function updateResultsTable(results) {
+          const header = document.getElementById("table-header");
+          const body = document.getElementById("table-body");
+          const noResultsMessage =
+            document.getElementById("no-results-message");
+
+          if (products.length === 0) {
+            noResultsMessage.classList.remove("hidden");
+            header.style.display = "none";
+            body.style.display = "none";
+            return;
+          }
+
+          noResultsMessage.classList.add("hidden");
+          header.style.display = "";
+          body.style.display = "";
+
+          // Generate header
+          let headerHtml =
+            '<th class="p-4 text-sm font-semibold uppercase text-gray-600 bg-gray-50">Métrica</th>';
+          products.forEach((product, index) => {
+            const colorClass = productTypes[product.type].color;
+            headerHtml += `<th class="p-4 text-sm font-semibold uppercase text-${colorClass}-700 text-right bg-gray-50">${product.name}</th>`;
+          });
+          header.innerHTML = `<tr class="border-b-2 border-gray-300">${headerHtml}</tr>`;
+
+          // Generate body
+          const formatter = new Intl.NumberFormat("es-ES", {
+            style: "currency",
+            currency: "EUR",
+          });
+
+          const metrics = [
+            {
+              label: "Total Aportado",
+              getValue: (result) => formatter.format(result.totalAportado),
+              isUnique: true,
+            },
+            {
+              label: "Capital Bruto (antes de impuestos)",
+              getValue: (result) => formatter.format(result.capital),
+            },
+            {
+              label: "Ahorro Fiscal Acumulado",
+              getValue: (result, index) => {
+                if (products[index].type === "plan-pensiones") {
+                  return `+${formatter.format(result.ahorroFiscal)}`;
+                }
+                return "N/A";
+              },
+              rowClass: "bg-purple-50",
+            },
+            {
+              label: "Impuestos Estimados en Rescate",
+              getValue: (result) => `-${formatter.format(result.impuestos)}`,
+              rowClass: "bg-red-50",
+            },
+            {
+              label: "Capital Neto Final",
+              getValue: (result) => formatter.format(result.neto),
+              rowClass: "border-t-2 border-gray-300",
+              isImportant: true,
+            },
+            {
+              label: "Capital Neto (Poder adquisitivo hoy)",
+              getValue: (result) => formatter.format(result.netoReal),
+              rowClass: "bg-gray-100",
+            },
+          ];
+
+          let bodyHtml = "";
+          metrics.forEach((metric) => {
+            let rowHtml = `<td class="p-4 font-medium ${metric.isImportant ? "text-lg text-gray-900" : ""}">${metric.label}</td>`;
+
+            if (metric.isUnique) {
+              // For metrics that are the same across all products
+              rowHtml += `<td class="p-4 font-medium text-gray-600 text-right" colspan="${products.length}">${metric.getValue(results[0])}</td>`;
+            } else {
+              results.forEach((result, index) => {
+                const colorClass = productTypes[products[index].type].color;
+                const value = metric.getValue(result, index);
+                rowHtml += `<td class="p-4 font-medium ${metric.isImportant ? `text-lg text-${colorClass}-800` : ""} text-right">${value}</td>`;
+              });
+            }
+
+            bodyHtml += `<tr class="hover:bg-gray-50 ${metric.rowClass || ""}">${rowHtml}</tr>`;
+          });
+
+          body.innerHTML = bodyHtml;
+        }
+
+        /**
+         * Genera el resumen ejecutivo
+         */
+        function generateExecutiveSummary(results) {
+          if (products.length === 0) return;
+
+          // Find best product
+          let best = { index: 0, value: results[0].neto };
+          results.forEach((result, index) => {
+            if (result.neto > best.value) {
+              best = { index, value: result.neto };
+            }
+          });
+
+          const bestProduct = products[best.index];
+          const bestResult = results[best.index];
+          const worstValue = Math.min(...results.map((r) => r.neto));
+          const difference = best.value - worstValue;
+          const totalReturn =
+            ((best.value - bestResult.totalAportado) /
+              bestResult.totalAportado) *
+            100;
+
+          const colorClass = productTypes[bestProduct.type].color;
+
+          let html = `
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-white p-4 rounded-lg border border-${colorClass}-200">
               <h4 class="font-semibold text-${colorClass}-800 mb-2">🏆 Mejor Opción</h4>
@@ -1128,93 +1205,95 @@
           </div>
         `;
 
-        document.getElementById("resumen-ejecutivo").innerHTML = html;
-      }
-
-      /**
-       * Función principal de cálculo
-       */
-      function calculate() {
-        if (products.length === 0) {
-          alert("Añade al menos un producto para calcular");
-          return;
+          document.getElementById("resumen-ejecutivo").innerHTML = html;
         }
 
-        // Get global parameters
-        const globalParams = {
-          inicial: parseFloat(document.getElementById("inicial").value) || 0,
-          mensual: parseFloat(document.getElementById("mensual").value) || 0,
-          horizonte: parseInt(document.getElementById("horizonte").value) || 0,
-          inflacion:
-            parseFloat(document.getElementById("inflacion").value) / 100 || 0,
-          irpf: parseFloat(document.getElementById("irpf").value) / 100 || 0,
-          edadActual: parseInt(document.getElementById("edad").value) || 35,
-        };
-        globalParams.edadRescate =
-          globalParams.edadActual + globalParams.horizonte;
+        /**
+         * Función principal de cálculo
+         */
+        function calculate() {
+          if (products.length === 0) {
+            alert("Añade al menos un producto para calcular");
+            return;
+          }
 
-        // Calculate results for each product
-        const results = products.map((product) =>
-          calculateProductResult(product, globalParams)
-        );
+          // Get global parameters
+          const globalParams = {
+            inicial: parseFloat(document.getElementById("inicial").value) || 0,
+            mensual: parseFloat(document.getElementById("mensual").value) || 0,
+            horizonte:
+              parseInt(document.getElementById("horizonte").value) || 0,
+            inflacion:
+              parseFloat(document.getElementById("inflacion").value) / 100 || 0,
+            irpf: parseFloat(document.getElementById("irpf").value) / 100 || 0,
+            edadActual: parseInt(document.getElementById("edad").value) || 35,
+          };
+          globalParams.edadRescate =
+            globalParams.edadActual + globalParams.horizonte;
 
-        // Generate years array
-        const years = Array.from(
-          { length: globalParams.horizonte + 1 },
-          (_, i) => i
-        );
+          // Calculate results for each product
+          const results = products.map((product) =>
+            calculateProductResult(product, globalParams)
+          );
 
-        // Update displays
-        updateCharts(years, results);
-        updateResultsTable(results);
-        generateExecutiveSummary(results);
+          // Generate years array
+          const years = Array.from(
+            { length: globalParams.horizonte + 1 },
+            (_, i) => i
+          );
 
-        // Show results
-        document
-          .getElementById("resultados-container")
-          .classList.remove("hidden");
-      }
+          // Update displays
+          updateCharts(years, results);
+          updateResultsTable(results);
+          generateExecutiveSummary(results);
 
-      // Initialize the application
-      document.addEventListener("DOMContentLoaded", function () {
-        // Add initial products
-        addProduct(); // Fondo de Inversión
+          // Show results
+          document
+            .getElementById("resultados-container")
+            .classList.remove("hidden");
+        }
 
-        const product2 = {
-          id: `product_${nextProductId}`,
-          name: `Producto ${nextProductId}`,
-          type: "pias",
-          values: {},
-        };
-        products.push(product2);
-        nextProductId++;
+        // Initialize the application
+        document.addEventListener("DOMContentLoaded", function () {
+          // Add initial products
+          addProduct(); // Fondo de Inversión
 
-        const product3 = {
-          id: `product_${nextProductId}`,
-          name: `Producto ${nextProductId}`,
-          type: "plan-pensiones",
-          values: {},
-        };
-        products.push(product3);
-        nextProductId++;
+          const product2 = {
+            id: `product_${nextProductId}`,
+            name: `Producto ${nextProductId}`,
+            type: "pias",
+            values: {},
+          };
+          products.push(product2);
+          nextProductId++;
 
-        renderProducts();
-        updateNoProductsMessage();
+          const product3 = {
+            id: `product_${nextProductId}`,
+            name: `Producto ${nextProductId}`,
+            type: "plan-pensiones",
+            values: {},
+          };
+          products.push(product3);
+          nextProductId++;
 
-        // Add event listeners
-        document
-          .getElementById("add-product")
-          .addEventListener("click", addProduct);
-        document
-          .getElementById("calcular")
-          .addEventListener("click", calculate);
-      });
+          renderProducts();
+          updateNoProductsMessage();
 
-      // Make functions global so they can be called from HTML
-      window.addProduct = addProduct;
-      window.removeProduct = removeProduct;
-      window.changeProductType = changeProductType;
-      window.updateProductValue = updateProductValue;
-    </script>
+          // Add event listeners
+          document
+            .getElementById("add-product")
+            .addEventListener("click", addProduct);
+          document
+            .getElementById("calcular")
+            .addEventListener("click", calculate);
+        });
+
+        // Make functions global so they can be called from HTML
+        window.addProduct = addProduct;
+        window.removeProduct = removeProduct;
+        window.changeProductType = changeProductType;
+        window.updateProductValue = updateProductValue;
+      </script>
+    </div>
   </body>
 </html>
