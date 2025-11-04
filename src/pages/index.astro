@@ -7,1197 +7,348 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <title>Comparador de Inversión</title>
-    <!-- Carga de Chart.js para el gráfico -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
-    ></script>
+    <title>Comparador de Vehículos de Inversión</title>
     <style>
       /* Tipografía Inter */
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
       body {
         font-family: "Inter", sans-serif;
       }
-      /* Estilos para inputs number */
-      input[type="number"] {
-        -moz-appearance: textfield;
-      }
-      input[type="number"]::-webkit-outer-spin-button,
-      input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
     </style>
   </head>
-  <body class="bg-gray-100 text-gray-800">
-    <div class="max-w-7xl mx-auto p-4 md:p-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-6 text-center">
-        Comparador de Vehículos de Inversión
-      </h1>
-
-      <!-- SECCIÓN DE PARÁMETROS GLOBALES -->
-      <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-b pb-3">
-          Parámetros Globales
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          <!-- Aportación Inicial -->
-          <div class="col-span-1">
-            <label
-              for="inicial"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Aportación Inicial (€)</label
-            >
-            <input
-              type="number"
-              id="inicial"
-              value="5000"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
-            />
-          </div>
-          <!-- Aportación Mensual -->
-          <div class="col-span-1">
-            <label
-              for="mensual"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Aportación Mensual (€)</label
-            >
-            <input
-              type="number"
-              id="mensual"
-              value="200"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
-              title="Se aplicarán automáticamente los límites legales: PIAS máx 8.000€/año, Plan Pensiones máx 1.500€/año"
-            />
-            <p class="text-xs text-gray-500 mt-1">
-              <span id="limite-info" class="hidden"
-                >⚠️ Límites aplicados automáticamente</span
-              >
-            </p>
-          </div>
-          <!-- Edad Actual -->
-          <div class="col-span-1">
-            <label
-              for="edad"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Edad Actual</label
-            >
-            <input
-              type="number"
-              id="edad"
-              value="35"
-              min="18"
-              max="67"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
-              title="Tu edad actual para calcular fiscalidad correcta de PIAS"
-            />
-          </div>
-          <!-- Horizonte de Inversión -->
-          <div class="col-span-1">
-            <label
-              for="horizonte"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Horizonte (Años)</label
-            >
-            <input
-              type="number"
-              id="horizonte"
-              value="25"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
-            />
-          </div>
-          <!-- Inflación Anual -->
-          <div class="col-span-1">
-            <label
-              for="inflacion"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Inflación Anual (%)</label
-            >
-            <input
-              type="number"
-              step="0.1"
-              id="inflacion"
-              value="2"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
-            />
-          </div>
-          <!-- Tipo Marginal IRPF -->
-          <div class="col-span-1">
-            <label
-              for="irpf"
-              class="block text-sm font-medium text-gray-600 mb-1"
-              >Tipo Marginal IRPF (%)</label
-            >
-            <input
-              type="number"
-              step="1"
-              id="irpf"
-              value="30"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
-              title="Tu tipo de IRPF más alto. Clave para el Plan de Pensiones."
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- SECCIÓN DE PARÁMETROS POR PRODUCTO -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-        <!-- Tarjeta: Fondo de Inversión -->
-        <div class="bg-white p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-blue-700 mb-4">
-            1. Fondo de Inversión
-          </h3>
-          <div class="space-y-4">
-            <div>
-              <label
-                for="fi_rentabilidad"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Rentabilidad Bruta (%)</label
-              >
-              <input
-                type="number"
-                step="0.1"
-                id="fi_rentabilidad"
-                value="6.0"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label
-                for="fi_gestion"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Com. Gestión (%)</label
-              >
-              <input
-                type="number"
-                step="0.01"
-                id="fi_gestion"
-                value="1.5"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label
-                for="fi_deposito"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Com. Depósito (%)</label
-              >
-              <input
-                type="number"
-                step="0.01"
-                id="fi_deposito"
-                value="0.15"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Tarjeta: PIAS -->
-        <div class="bg-white p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-green-700 mb-4">
-            2. PIAS (Seguro de Ahorro)
-          </h3>
-          <div class="space-y-4">
-            <div>
-              <label
-                for="pias_rentabilidad"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Rentabilidad Bruta (%)</label
-              >
-              <input
-                type="number"
-                step="0.1"
-                id="pias_rentabilidad"
-                value="4.5"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
-              />
-            </div>
-            <div>
-              <label
-                for="pias_gestion"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Com. Gestión / Póliza (%)</label
-              >
-              <input
-                type="number"
-                step="0.01"
-                id="pias_gestion"
-                value="1.75"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
-              />
-            </div>
-            <div>
-              <label
-                for="pias_seguro"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Coste Seguro (anual €)</label
-              >
-              <input
-                type="number"
-                step="1"
-                id="pias_seguro"
-                value="30"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
-                title="Coste fijo anual del seguro de vida asociado"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Tarjeta: Plan de Pensiones -->
-        <div class="bg-white p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-purple-700 mb-4">
-            3. Plan de Pensiones
-          </h3>
-          <div class="space-y-4">
-            <div>
-              <label
-                for="pp_rentabilidad"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Rentabilidad Bruta (%)</label
-              >
-              <input
-                type="number"
-                step="0.1"
-                id="pp_rentabilidad"
-                value="5.0"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
-              />
-            </div>
-            <div>
-              <label
-                for="pp_gestion"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Com. Gestión (%)</label
-              >
-              <input
-                type="number"
-                step="0.01"
-                id="pp_gestion"
-                value="1.25"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
-              />
-            </div>
-            <div>
-              <label
-                for="pp_deposito"
-                class="block text-sm font-medium text-gray-600 mb-1"
-                >Com. Depósito (%)</label
-              >
-              <input
-                type="number"
-                step="0.01"
-                id="pp_deposito"
-                value="0.15"
-                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Botón de Calcular -->
-      <div class="text-center mb-8">
-        <button
-          id="calcular"
-          class="w-full md:w-auto px-12 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-        >
-          Calcular Proyección
-        </button>
-      </div>
-
-      <!-- SECCIÓN DE RESULTADOS -->
-      <div
-        id="resultados-container"
-        class="bg-white p-6 rounded-xl shadow-lg hidden"
-      >
-        <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-b pb-3">
-          Resultados de la Proyección
-        </h2>
-
-        <!-- Gráfico de Comparación (Líneas: Capital vs Tiempo) -->
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-700 mb-4">
-            Evolución del Capital Bruto (vs. Tiempo)
-          </h3>
-          <div class="h-80">
-            <canvas id="netoChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Gráfico de Capital Neto Real -->
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-700 mb-4">
-            Evolución del Capital Neto Final (después de impuestos)
-          </h3>
-          <div class="h-80">
-            <canvas id="netoRealChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Resumen Ejecutivo -->
-        <div
-          class="mb-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200"
-        >
-          <h3 class="text-xl font-semibold text-gray-700 mb-4">
-            🎯 Resumen Ejecutivo y Recomendación
-          </h3>
-          <div id="resumen-ejecutivo" class="text-sm space-y-2">
-            <!-- Se rellenará dinámicamente -->
-          </div>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-max text-left">
-            <thead>
-              <tr class="border-b-2 border-gray-300">
-                <th class="p-4 text-sm font-semibold uppercase text-gray-500"
-                  >Métrica</th
-                >
-                <th
-                  class="p-4 text-sm font-semibold uppercase text-blue-700 text-right"
-                  >Fondo Inversión</th
-                >
-                <th
-                  class="p-4 text-sm font-semibold uppercase text-green-700 text-right"
-                  >PIAS</th
-                >
-                <th
-                  class="p-4 text-sm font-semibold uppercase text-purple-700 text-right"
-                  >Plan de Pensiones</th
-                >
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <!-- Total Aportado -->
-              <tr class="hover:bg-gray-50">
-                <td class="p-4 font-medium">Total Aportado</td>
-                <td
-                  id="res_total_aportado"
-                  class="p-4 font-medium text-gray-600 text-right"
-                  colspan="3"></td>
-              </tr>
-              <!-- Capital Bruto -->
-              <tr class="hover:bg-gray-50">
-                <td class="p-4 font-medium"
-                  >Capital Bruto (antes de impuestos)</td
-                >
-                <td id="res_bruto_fi" class="p-4 font-medium text-right"></td>
-                <td id="res_bruto_pias" class="p-4 font-medium text-right"></td>
-                <td id="res_bruto_pp" class="p-4 font-medium text-right"></td>
-              </tr>
-              <!-- Ahorro Fiscal -->
-              <tr class="hover:bg-gray-50 bg-purple-50">
-                <td class="p-4 font-medium text-purple-800"
-                  >Ahorro Fiscal Acumulado (PP)</td
-                >
-                <td class="p-4 font-medium text-gray-400 text-right">N/A</td>
-                <td class="p-4 font-medium text-gray-400 text-right">N/A</td>
-                <td
-                  id="res_ahorro_pp"
-                  class="p-4 font-bold text-purple-800 text-right"></td>
-              </tr>
-              <!-- Impuestos en Rescate -->
-              <tr class="hover:bg-gray-50 bg-red-50">
-                <td class="p-4 font-medium text-red-800"
-                  >Impuestos Estimados en Rescate</td
-                >
-                <td
-                  id="res_impuestos_fi"
-                  class="p-4 font-medium text-red-800 text-right"></td>
-                <td
-                  id="res_impuestos_pias"
-                  class="p-4 font-medium text-red-800 text-right"></td>
-                <td
-                  id="res_impuestos_pp"
-                  class="p-4 font-medium text-red-800 text-right"></td>
-              </tr>
-              <!-- CAPITAL NETO (AJUSTADO) -->
-              <tr class="border-t-2 border-gray-300">
-                <td class="p-4 font-bold text-lg text-gray-900"
-                  >Capital Neto Final (Ajustado)</td
-                >
-                <td
-                  id="res_neto_fi"
-                  class="p-4 font-bold text-lg text-blue-800 text-right"></td>
-                <td
-                  id="res_neto_pias"
-                  class="p-4 font-bold text-lg text-green-800 text-right"></td>
-                <td
-                  id="res_neto_pp"
-                  class="p-4 font-bold text-lg text-purple-800 text-right"></td>
-              </tr>
-              <!-- CAPITAL REAL (vs Inflación) -->
-              <tr class="bg-gray-100">
-                <td class="p-4 font-medium text-gray-700"
-                  >Capital Neto (Poder adquisitivo hoy)</td
-                >
-                <td
-                  id="res_real_fi"
-                  class="p-4 font-medium text-gray-700 text-right"></td>
-                <td
-                  id="res_real_pias"
-                  class="p-4 font-medium text-gray-700 text-right"></td>
-                <td
-                  id="res_real_pp"
-                  class="p-4 font-medium text-gray-700 text-right"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Notas Aclaratorias -->
-        <div class="mt-8 pt-6 border-t border-gray-200">
-          <h3 class="text-xl font-semibold text-gray-700 mb-4">
-            📋 Notas sobre los Cálculos y Fiscalidad Mejorada
-          </h3>
-          <div class="space-y-4 text-sm text-gray-600">
-            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-              <p>
-                <strong class="text-blue-700"
-                  >1. Fondo de Inversión (Fiscalidad Real):</strong
-                >
-                Se aplica el <strong>tipo escalonado real</strong> de ahorro del
-                capital:
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li>19% hasta 6.000€ de ganancia</li>
-                  <li>21% de 6.001€ a 50.000€</li>
-                  <li>23% de 50.001€ a 200.000€</li>
-                  <li>26% a partir de 200.001€</li>
-                </ul>
-              </p>
-            </div>
-
-            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-              <p>
-                <strong class="text-green-700"
-                  >2. PIAS (Fiscalidad por Edad Correcta):</strong
-                >
-                La exención fiscal depende de la <strong>edad de rescate</strong
-                > al contratar renta vitalicia:
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li><strong>Hasta 40 años:</strong> 40% de exención</li>
-                  <li><strong>40-52 años:</strong> 50% de exención</li>
-                  <li><strong>52-67 años:</strong> 60% de exención</li>
-                  <li><strong>67+ años:</strong> 75% de exención</li>
-                </ul>
-                <p class="mt-2 text-xs">
-                  Solo las ganancias no exentas tributan al 19% (primer tramo de
-                  ahorro).
-                </p>
-              </p>
-            </div>
-
-            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
-              <p>
-                <strong class="text-purple-700"
-                  >3. Plan de Pensiones + Límites Legales:</strong
-                >
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li>
-                    <strong>Límite máximo:</strong> 1.500€/año (aplicado automáticamente)
-                  </li>
-                  <li>
-                    <strong>Ventaja:</strong> Reducción inmediata en IRPF por cada
-                    aportación
-                  </li>
-                  <li>
-                    <strong>Desventaja:</strong> TODO el capital rescatado tributa
-                    como rendimiento del trabajo
-                  </li>
-                  <li>
-                    <strong>Cálculo neto:</strong> (Capital - Impuestos rescate)
-                    + Ahorro fiscal acumulado
-                  </li>
-                </ul>
-              </p>
-            </div>
-
-            <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
-              <p>
-                <strong class="text-amber-700"
-                  >4. Límites Automáticos Aplicados:</strong
-                >
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li><strong>PIAS:</strong> Máximo 8.000€/año</li>
-                  <li><strong>Plan de Pensiones:</strong> Máximo 1.500€/año</li>
-                  <li>
-                    El simulador ajusta automáticamente las aportaciones si
-                    exceden estos límites
-                  </li>
-                </ul>
-              </p>
-            </div>
-
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <p>
-                <strong class="text-gray-700">5. Nuevas Funcionalidades:</strong
-                >
-                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                  <li><strong>Fiscalidad real</strong> según tramos y edad</li>
-                  <li>
-                    <strong>Límites legales</strong> aplicados automáticamente
-                  </li>
-                  <li>
-                    <strong>Doble gráfico:</strong> Capital bruto vs Capital neto
-                    final
-                  </li>
-                  <li>
-                    <strong>Resumen ejecutivo</strong> con recomendación automática
-                  </li>
-                  <li>
-                    <strong>Alertas inteligentes</strong> sobre límites y exenciones
-                  </li>
-                </ul>
-              </p>
-            </div>
-          </div>
+  <body class="bg-gray-100 text-gray-800 min-h-screen">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+      <div class="max-w-6xl mx-auto px-4 py-16">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            Comparador de Vehículos de Inversión
+          </h1>
+          <p class="text-xl md:text-2xl opacity-90 mb-8 max-w-3xl mx-auto">
+            Descubre cuál es la mejor opción de inversión para tu futuro
+            financiero
+          </p>
+          <p class="text-lg opacity-80 max-w-2xl mx-auto">
+            Compara entre Fondos de Inversión, PIAS y Planes de Pensiones con
+            nuestro calculador avanzado
+          </p>
         </div>
       </div>
     </div>
 
-    <script is:inline>
-      // Variables globales para los gráficos
-      let netoChart = null;
-      let netoRealChart = null;
-
-      /**
-       * Calcula el tipo de gravamen de ahorro según la ganancia acumulada
-       * @param {number} ganancia Ganancia total de capital
-       * @returns {number} Tipo de gravamen aplicable
-       */
-      function calcularTipoAhorro(ganancia) {
-        if (ganancia <= 6000) return 0.19;
-        if (ganancia <= 50000) return 0.21;
-        if (ganancia <= 200000) return 0.23;
-        return 0.26;
-      }
-
-      /**
-       * Calcula el impuesto escalonado sobre ganancias de capital
-       * @param {number} ganancia Ganancia total
-       * @returns {number} Impuesto total a pagar
-       */
-      function calcularImpuestoEscalonado(ganancia) {
-        if (ganancia <= 0) return 0;
-
-        let impuesto = 0;
-        let restante = ganancia;
-
-        // Tramo 1: hasta 6.000€ al 19%
-        const tramo1 = Math.min(restante, 6000);
-        impuesto += tramo1 * 0.19;
-        restante -= tramo1;
-
-        if (restante <= 0) return impuesto;
-
-        // Tramo 2: de 6.001€ a 50.000€ al 21%
-        const tramo2 = Math.min(restante, 44000);
-        impuesto += tramo2 * 0.21;
-        restante -= tramo2;
-
-        if (restante <= 0) return impuesto;
-
-        // Tramo 3: de 50.001€ a 200.000€ al 23%
-        const tramo3 = Math.min(restante, 150000);
-        impuesto += tramo3 * 0.23;
-        restante -= tramo3;
-
-        if (restante <= 0) return impuesto;
-
-        // Tramo 4: más de 200.000€ al 26%
-        impuesto += restante * 0.26;
-
-        return impuesto;
-      }
-
-      /**
-       * Calcula el porcentaje de exención de PIAS según la edad de rescate
-       * @param {number} edadRescate Edad cuando se rescata el PIAS
-       * @returns {number} Porcentaje de exención (0-1)
-       */
-      function calcularExencionPIAS(edadRescate) {
-        if (edadRescate < 40) return 0.4;
-        if (edadRescate < 52) return 0.5;
-        if (edadRescate < 67) return 0.6;
-        return 0.75; // 67+ años
-      }
-
-      /**
-       * Aplica límites legales a las aportaciones
-       * @param {number} aportacionAnual Aportación anual deseada
-       * @param {string} producto Tipo de producto ('pias' o 'pp')
-       * @returns {number} Aportación limitada
-       */
-      function aplicarLimites(aportacionAnual, producto) {
-        const limites = {
-          pias: 8000,
-          pp: 1500,
-        };
-        return Math.min(aportacionAnual, limites[producto] || aportacionAnual);
-      }
-
-      /**
-       * Inicializa o actualiza el gráfico de líneas con la evolución anual del capital bruto.
-       */
-      function actualizarGrafico(
-        years,
-        capital_fi_anual,
-        capital_pias_anual,
-        capital_pp_anual
-      ) {
-        const ctx = document.getElementById("netoChart").getContext("2d");
-
-        const data = {
-          labels: years,
-          datasets: [
-            {
-              label: "Fondo de Inversión (Bruto)",
-              data: capital_fi_anual,
-              borderColor: "rgb(37, 99, 235)",
-              backgroundColor: "rgba(37, 99, 235, 0.1)",
-              tension: 0.3,
-              pointRadius: 2,
-              fill: false,
-            },
-            {
-              label: "PIAS (Bruto)",
-              data: capital_pias_anual,
-              borderColor: "rgb(22, 163, 74)",
-              backgroundColor: "rgba(22, 163, 74, 0.1)",
-              tension: 0.3,
-              pointRadius: 2,
-              fill: false,
-            },
-            {
-              label: "Plan de Pensiones (Bruto)",
-              data: capital_pp_anual,
-              borderColor: "rgb(126, 34, 206)",
-              backgroundColor: "rgba(126, 34, 206, 0.1)",
-              tension: 0.3,
-              pointRadius: 2,
-              fill: false,
-            },
-          ],
-        };
-
-        const options = {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: true,
-              position: "top",
-              labels: {
-                usePointStyle: true,
-                font: { size: 12 },
-              },
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  let label = context.dataset.label || "";
-                  if (label) {
-                    label += ": ";
-                  }
-                  label += new Intl.NumberFormat("es-ES", {
-                    style: "currency",
-                    currency: "EUR",
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  }).format(context.raw);
-                  return label;
-                },
-              },
-            },
-          },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: "Tiempo (Años)",
-              },
-              grid: {
-                display: false,
-              },
-            },
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: "Capital Bruto Acumulado (€)",
-              },
-              ticks: {
-                callback: function (value) {
-                  return new Intl.NumberFormat("es-ES", {
-                    style: "currency",
-                    currency: "EUR",
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  }).format(value);
-                },
-              },
-            },
-          },
-        };
-
-        if (netoChart) {
-          netoChart.destroy();
-        }
-        netoChart = new Chart(ctx, {
-          type: "line",
-          data: data,
-          options: options,
-        });
-      }
-
-      /**
-       * Actualiza el gráfico de capital neto real
-       */
-      function actualizarGraficoNeto(
-        years,
-        neto_fi_anual,
-        neto_pias_anual,
-        neto_pp_anual
-      ) {
-        const ctx = document.getElementById("netoRealChart").getContext("2d");
-
-        const data = {
-          labels: years,
-          datasets: [
-            {
-              label: "Fondo de Inversión (Neto)",
-              data: neto_fi_anual,
-              borderColor: "rgb(37, 99, 235)",
-              backgroundColor: "rgba(37, 99, 235, 0.2)",
-              tension: 0.3,
-              pointRadius: 3,
-              fill: false,
-              borderWidth: 3,
-            },
-            {
-              label: "PIAS (Neto)",
-              data: neto_pias_anual,
-              borderColor: "rgb(22, 163, 74)",
-              backgroundColor: "rgba(22, 163, 74, 0.2)",
-              tension: 0.3,
-              pointRadius: 3,
-              fill: false,
-              borderWidth: 3,
-            },
-            {
-              label: "Plan de Pensiones (Neto + Ahorro)",
-              data: neto_pp_anual,
-              borderColor: "rgb(126, 34, 206)",
-              backgroundColor: "rgba(126, 34, 206, 0.2)",
-              tension: 0.3,
-              pointRadius: 3,
-              fill: false,
-              borderWidth: 3,
-            },
-          ],
-        };
-
-        const options = {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: true,
-              position: "top",
-              labels: {
-                usePointStyle: true,
-                font: { size: 12 },
-              },
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  let label = context.dataset.label || "";
-                  if (label) {
-                    label += ": ";
-                  }
-                  label += new Intl.NumberFormat("es-ES", {
-                    style: "currency",
-                    currency: "EUR",
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  }).format(context.raw);
-                  return label;
-                },
-              },
-            },
-          },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: "Tiempo (Años)",
-              },
-              grid: {
-                display: false,
-              },
-            },
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: "Capital Neto Final (€)",
-              },
-              ticks: {
-                callback: function (value) {
-                  return new Intl.NumberFormat("es-ES", {
-                    style: "currency",
-                    currency: "EUR",
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  }).format(value);
-                },
-              },
-            },
-          },
-        };
-
-        if (netoRealChart) {
-          netoRealChart.destroy();
-        }
-        netoRealChart = new Chart(ctx, {
-          type: "line",
-          data: data,
-          options: options,
-        });
-      }
-
-      /**
-       * Genera el resumen ejecutivo con recomendaciones
-       */
-      function generarResumenEjecutivo(resultados) {
-        const {
-          neto_fi,
-          neto_pias,
-          neto_pp_ajustado,
-          totalAportado,
-          edadRescate,
-          limitesAplicados,
-        } = resultados;
-
-        // Determinar el mejor producto
-        let mejor = {
-          nombre: "Fondo de Inversión",
-          valor: neto_fi,
-          color: "blue",
-        };
-        if (neto_pias > mejor.valor) {
-          mejor = { nombre: "PIAS", valor: neto_pias, color: "green" };
-        }
-        if (neto_pp_ajustado > mejor.valor) {
-          mejor = {
-            nombre: "Plan de Pensiones",
-            valor: neto_pp_ajustado,
-            color: "purple",
-          };
-        }
-
-        const diferencia =
-          mejor.valor - Math.min(neto_fi, neto_pias, neto_pp_ajustado);
-        const rentabilidadTotal =
-          ((mejor.valor - totalAportado) / totalAportado) * 100;
-
-        let html = `
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-4 rounded-lg border border-${mejor.color}-200">
-              <h4 class="font-semibold text-${mejor.color}-800 mb-2">🏆 Mejor Opción</h4>
-              <p class="text-sm"><strong>${mejor.nombre}</strong></p>
-              <p class="text-lg font-bold text-${mejor.color}-700">${new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(mejor.valor)}</p>
-              <p class="text-xs text-gray-600">Ventaja: +${new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(diferencia)}</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg border border-gray-200">
-              <h4 class="font-semibold text-gray-800 mb-2">📊 Rentabilidad Total</h4>
-              <p class="text-lg font-bold text-gray-700">${rentabilidadTotal.toFixed(1)}%</p>
-              <p class="text-xs text-gray-600">Sobre inversión total</p>
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <!-- Investment Cards Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <!-- Fondo de Inversión Card -->
+        <div
+          class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+        >
+          <div class="bg-blue-600 text-white p-6">
+            <h3 class="text-2xl font-bold mb-2">Fondo de Inversión</h3>
+            <p class="opacity-90">Máxima flexibilidad</p>
+          </div>
+          <div class="p-6">
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Liquidez:</strong> Completa - Rescate en cualquier momento
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Fiscalidad:</strong> Tributación por ganancias de capital
+                  (19%-26%)
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Ventajas fiscales:</strong> Diferimiento de impuestos hasta
+                  el rescate
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Límites:</strong> Sin límites de aportación
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Ideal para:</strong> Inversores que buscan flexibilidad
+                  total
+                </p>
+              </div>
             </div>
           </div>
-        `;
+        </div>
 
-        // Añadir alertas importantes
-        html += `<div class="mt-4 space-y-2">`;
+        <!-- PIAS Card -->
+        <div
+          class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+        >
+          <div class="bg-green-600 text-white p-6">
+            <h3 class="text-2xl font-bold mb-2">PIAS</h3>
+            <p class="opacity-90">Seguro de Ahorro</p>
+          </div>
+          <div class="p-6">
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Liquidez:</strong> Rescate con penalizaciones los primeros
+                  años
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Fiscalidad:</strong> Exención parcial según edad de rescate
+                  (40%-75%)
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Límite anual:</strong> 8.000€ de aportación máxima
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Ventaja:</strong> Exención fiscal creciente con la edad
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Ideal para:</strong> Ahorro a largo plazo con ventajas
+                  fiscales
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        if (limitesAplicados.pias || limitesAplicados.pp) {
-          html += `<div class="flex items-center text-amber-700 bg-amber-50 p-2 rounded">
-            <span class="mr-2">⚠️</span>
-            <span class="text-sm">Se han aplicado límites legales automáticamente.</span>
-          </div>`;
-        }
+        <!-- Plan de Pensiones Card -->
+        <div
+          class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+        >
+          <div class="bg-purple-600 text-white p-6">
+            <h3 class="text-2xl font-bold mb-2">Plan de Pensiones</h3>
+            <p class="opacity-90">Jubilación segura</p>
+          </div>
+          <div class="p-6">
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Liquidez:</strong> Limitada - Rescate solo en jubilación
+                  o casos excepcionales
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Deducción fiscal:</strong> Hasta 1.500€ anuales en la declaración
+                  de la renta
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Fiscalidad rescate:</strong> Como rendimientos del trabajo
+                  (IRPF)
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Límite anual:</strong> 1.500€ de aportación deducible
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  <strong>Ideal para:</strong> Reducir la carga fiscal actual y planificar
+                  la jubilación
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        if (edadRescate < 67) {
-          const exencion = calcularExencionPIAS(edadRescate) * 100;
-          html += `<div class="flex items-center text-blue-700 bg-blue-50 p-2 rounded">
-            <span class="mr-2">ℹ️</span>
-            <span class="text-sm">PIAS: Exención del ${exencion}% a los ${edadRescate} años. Mejora con la edad.</span>
-          </div>`;
-        }
+      <!-- Comparison Section -->
+      <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+          ¿Por qué comparar estos productos?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-semibold text-blue-600 mb-4">
+              Ventajas de la comparación
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">Optimización fiscal según tu perfil</p>
+              </li>
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  Maximización de la rentabilidad neta
+                </p>
+              </li>
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  Análisis de liquidez vs. beneficios fiscales
+                </p>
+              </li>
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  Proyección a largo plazo personalizada
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-green-600 mb-4">
+              Factores considerados
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">
+                  Edad actual y horizonte de inversión
+                </p>
+              </li>
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">Capacidad de aportación mensual</p>
+              </li>
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">Tipo marginal de IRPF</p>
+              </li>
+              <li class="flex items-start space-x-3">
+                <div
+                  class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"
+                >
+                </div>
+                <p class="text-gray-700">Rentabilidad esperada e inflación</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-        html += `</div>`;
+      <!-- CTA Section -->
+      <div class="text-center">
+        <div
+          class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-8 text-white"
+        >
+          <h2 class="text-3xl font-bold mb-4">
+            ¿Listo para encontrar tu mejor opción de inversión?
+          </h2>
+          <p class="text-xl mb-8 opacity-90">
+            Utiliza nuestro calculador avanzado para obtener una proyección
+            personalizada
+          </p>
+          <a
+            href="/comparador-vehiculos-inversion/calculator"
+            class="inline-block px-10 py-4 bg-white text-blue-600 text-xl font-bold rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50"
+          >
+            Calcular mi Proyección
+          </a>
+        </div>
+      </div>
+    </div>
 
-        document.getElementById("resumen-ejecutivo").innerHTML = html;
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        document
-          .getElementById("calcular")
-          .addEventListener("click", function () {
-            // --- 1. LEER DATOS GLOBALES ---
-            const inicial =
-              parseFloat(document.getElementById("inicial").value) || 0;
-            const mensual =
-              parseFloat(document.getElementById("mensual").value) || 0;
-            const horizonte =
-              parseInt(document.getElementById("horizonte").value) || 0;
-            const inflacion =
-              parseFloat(document.getElementById("inflacion").value) / 100 || 0;
-            const irpf =
-              parseFloat(document.getElementById("irpf").value) / 100 || 0;
-            const edadActual =
-              parseInt(document.getElementById("edad").value) || 35;
-            const edadRescate = edadActual + horizonte;
-
-            // --- 2. LEER COMISIONES Y RENTABILIDAD POR PRODUCTO ---
-            // Fondo de Inversión
-            const fi_rentabilidad_anual =
-              parseFloat(document.getElementById("fi_rentabilidad").value) /
-                100 || 0;
-            const fi_gestion =
-              parseFloat(document.getElementById("fi_gestion").value) / 100 ||
-              0;
-            const fi_deposito =
-              parseFloat(document.getElementById("fi_deposito").value) / 100 ||
-              0;
-            const comision_fi_total = fi_gestion + fi_deposito;
-            const fi_rentabilidadMensual =
-              Math.pow(1 + fi_rentabilidad_anual, 1 / 12) - 1;
-
-            // PIAS
-            const pias_rentabilidad_anual =
-              parseFloat(document.getElementById("pias_rentabilidad").value) /
-                100 || 0;
-            const pias_gestion =
-              parseFloat(document.getElementById("pias_gestion").value) / 100 ||
-              0;
-            const pias_seguro =
-              parseFloat(document.getElementById("pias_seguro").value) || 0;
-            const pias_rentabilidadMensual =
-              Math.pow(1 + pias_rentabilidad_anual, 1 / 12) - 1;
-
-            // Plan de Pensiones
-            const pp_rentabilidad_anual =
-              parseFloat(document.getElementById("pp_rentabilidad").value) /
-                100 || 0;
-            const pp_gestion =
-              parseFloat(document.getElementById("pp_gestion").value) / 100 ||
-              0;
-            const pp_deposito =
-              parseFloat(document.getElementById("pp_deposito").value) / 100 ||
-              0;
-            const comision_pp_total = pp_gestion + pp_deposito;
-            const pp_rentabilidadMensual =
-              Math.pow(1 + pp_rentabilidad_anual, 1 / 12) - 1;
-
-            // --- 3. APLICAR LÍMITES Y VALIDACIONES ---
-            const aportacionAnual = mensual * 12;
-            const limitePIAS = aplicarLimites(aportacionAnual, "pias");
-            const limitePP = aplicarLimites(aportacionAnual, "pp");
-
-            const limitesAplicados = {
-              pias: limitePIAS < aportacionAnual,
-              pp: limitePP < aportacionAnual,
-            };
-
-            // Mostrar alerta si se aplican límites
-            const limiteInfo = document.getElementById("limite-info");
-            if (limitesAplicados.pias || limitesAplicados.pp) {
-              limiteInfo.classList.remove("hidden");
-            } else {
-              limiteInfo.classList.add("hidden");
-            }
-
-            // --- 4. INICIALIZAR VARIABLES DE CÁLCULO ---
-            let capital_fi = inicial;
-            let capital_pias = inicial;
-            let capital_pp = inicial;
-
-            let totalAportado = inicial;
-            let ahorroFiscalPP = 0;
-
-            // Arrays para los gráficos
-            let capital_fi_anual = [inicial];
-            let capital_pias_anual = [inicial];
-            let capital_pp_anual = [inicial];
-            let neto_fi_anual = [inicial];
-            let neto_pias_anual = [inicial];
-            let neto_pp_anual = [inicial];
-            let years = [0];
-
-            // --- 5. BUCLE DE SIMULACIÓN ANUAL ---
-            for (let ano = 0; ano < horizonte; ano++) {
-              // Calcular aportaciones con límites
-              const aportacion_fi = mensual * 12;
-              const aportacion_pias = Math.min(mensual * 12, limitePIAS);
-              const aportacion_pp = Math.min(mensual * 12, limitePP);
-
-              // Actualizar total aportado (usar el mínimo para cálculo justo)
-              totalAportado += Math.min(
-                aportacion_fi,
-                aportacion_pias,
-                aportacion_pp
-              );
-
-              // Ahorro fiscal del PP
-              ahorroFiscalPP += aportacion_pp * irpf;
-
-              // Simulación mensual
-              for (let mes = 0; mes < 12; mes++) {
-                const aportacion_mensual_fi = aportacion_fi / 12;
-                const aportacion_mensual_pias = aportacion_pias / 12;
-                const aportacion_mensual_pp = aportacion_pp / 12;
-
-                // Aplicar aportaciones y rentabilidad mensual
-                capital_fi =
-                  (capital_fi + aportacion_mensual_fi) *
-                  (1 + fi_rentabilidadMensual);
-                capital_pias =
-                  (capital_pias + aportacion_mensual_pias) *
-                  (1 + pias_rentabilidadMensual);
-                capital_pp =
-                  (capital_pp + aportacion_mensual_pp) *
-                  (1 + pp_rentabilidadMensual);
-              }
-
-              // Aplicar comisiones anuales
-              capital_fi *= 1 - comision_fi_total;
-              capital_pias = capital_pias * (1 - pias_gestion) - pias_seguro;
-              capital_pp *= 1 - comision_pp_total;
-
-              // Guardar datos anuales
-              capital_fi_anual.push(capital_fi);
-              capital_pias_anual.push(capital_pias);
-              capital_pp_anual.push(capital_pp);
-
-              // Calcular netos aproximados para el gráfico
-              const ganancias_fi_temp = capital_fi - totalAportado;
-              const impuestos_fi_temp =
-                calcularImpuestoEscalonado(ganancias_fi_temp);
-              const exencion_pias = calcularExencionPIAS(edadRescate);
-              const ganancias_pias = capital_pias - totalAportado;
-              const impuestos_pias_temp =
-                ganancias_pias * (1 - exencion_pias) * 0.19; // Mínimo de ahorro
-              const impuestos_pp_temp = capital_pp * irpf;
-
-              neto_fi_anual.push(capital_fi - impuestos_fi_temp);
-              neto_pias_anual.push(
-                capital_pias - Math.max(0, impuestos_pias_temp)
-              );
-              neto_pp_anual.push(
-                capital_pp - impuestos_pp_temp + ahorroFiscalPP
-              );
-
-              years.push(ano + 1);
-            }
-
-            // --- 6. CÁLCULO DE IMPUESTOS Y NETO FINAL ---
-            // Fondo de Inversión - Impuesto escalonado
-            const ganancias_fi = capital_fi - totalAportado;
-            const impuestos_fi = calcularImpuestoEscalonado(ganancias_fi);
-            const neto_fi = capital_fi - impuestos_fi;
-
-            // PIAS - Exención por edad
-            const exencionPIAS = calcularExencionPIAS(edadRescate);
-            const ganancias_pias = capital_pias - totalAportado;
-            const impuestos_pias = Math.max(
-              0,
-              ganancias_pias * (1 - exencionPIAS) * 0.19
-            );
-            const neto_pias = capital_pias - impuestos_pias;
-
-            // Plan de Pensiones
-            const impuestos_pp = capital_pp * irpf;
-            const neto_pp_bruto = capital_pp - impuestos_pp;
-            const neto_pp_ajustado = neto_pp_bruto + ahorroFiscalPP;
-
-            // Capital real (ajustado a inflación)
-            const factorInflacion = Math.pow(1 + inflacion, horizonte);
-            const real_fi = neto_fi / factorInflacion;
-            const real_pias = neto_pias / factorInflacion;
-            const real_pp = neto_pp_ajustado / factorInflacion;
-
-            // --- 7. MOSTRAR RESULTADOS ---
-            const formatter = new Intl.NumberFormat("es-ES", {
-              style: "currency",
-              currency: "EUR",
-            });
-
-            document.getElementById("res_total_aportado").textContent =
-              formatter.format(totalAportado);
-            document.getElementById("res_bruto_fi").textContent =
-              formatter.format(capital_fi);
-            document.getElementById("res_bruto_pias").textContent =
-              formatter.format(capital_pias);
-            document.getElementById("res_bruto_pp").textContent =
-              formatter.format(capital_pp);
-            document.getElementById("res_ahorro_pp").textContent =
-              `+${formatter.format(ahorroFiscalPP)}`;
-            document.getElementById("res_impuestos_fi").textContent =
-              `-${formatter.format(impuestos_fi)}`;
-            document.getElementById("res_impuestos_pias").textContent =
-              impuestos_pias > 0
-                ? `-${formatter.format(impuestos_pias)} (${Math.round(exencionPIAS * 100)}% exento)`
-                : formatter.format(0) +
-                  ` (${Math.round(exencionPIAS * 100)}% exento)`;
-            document.getElementById("res_impuestos_pp").textContent =
-              `-${formatter.format(impuestos_pp)}`;
-            document.getElementById("res_neto_fi").textContent =
-              formatter.format(neto_fi);
-            document.getElementById("res_neto_pias").textContent =
-              formatter.format(neto_pias);
-            document.getElementById("res_neto_pp").textContent =
-              formatter.format(neto_pp_ajustado);
-            document.getElementById("res_real_fi").textContent =
-              formatter.format(real_fi);
-            document.getElementById("res_real_pias").textContent =
-              formatter.format(real_pias);
-            document.getElementById("res_real_pp").textContent =
-              formatter.format(real_pp);
-
-            // --- 8. ACTUALIZAR GRÁFICOS ---
-            actualizarGrafico(
-              years,
-              capital_fi_anual,
-              capital_pias_anual,
-              capital_pp_anual
-            );
-            actualizarGraficoNeto(
-              years,
-              neto_fi_anual,
-              neto_pias_anual,
-              neto_pp_anual
-            );
-
-            // --- 9. GENERAR RESUMEN EJECUTIVO ---
-            generarResumenEjecutivo({
-              neto_fi,
-              neto_pias,
-              neto_pp_ajustado,
-              totalAportado,
-              edadRescate,
-              limitesAplicados,
-            });
-
-            // Mostrar resultados
-            document
-              .getElementById("resultados-container")
-              .classList.remove("hidden");
-          });
-      });
-    </script>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+      <div class="max-w-6xl mx-auto px-4 text-center">
+        <p class="text-gray-400">
+          © 2025 Comparador de Vehículos de Inversión. Herramienta educativa
+          para comparar opciones de inversión.
+        </p>
+        <p class="text-sm text-gray-500 mt-2">
+          Los resultados son orientativos y no constituyen asesoramiento
+          financiero.
+        </p>
+      </div>
+    </footer>
   </body>
 </html>
