@@ -67,6 +67,29 @@
               id="mensual"
               value="200"
               class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+              title="Se aplicarán automáticamente los límites legales: PIAS máx 8.000€/año, Plan Pensiones máx 1.500€/año"
+            />
+            <p class="text-xs text-gray-500 mt-1">
+              <span id="limite-info" class="hidden"
+                >⚠️ Límites aplicados automáticamente</span
+              >
+            </p>
+          </div>
+          <!-- Edad Actual -->
+          <div class="col-span-1">
+            <label
+              for="edad"
+              class="block text-sm font-medium text-gray-600 mb-1"
+              >Edad Actual</label
+            >
+            <input
+              type="number"
+              id="edad"
+              value="35"
+              min="18"
+              max="67"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+              title="Tu edad actual para calcular fiscalidad correcta de PIAS"
             />
           </div>
           <!-- Horizonte de Inversión -->
@@ -303,6 +326,28 @@
           </div>
         </div>
 
+        <!-- Gráfico de Capital Neto Real -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">
+            Evolución del Capital Neto Final (después de impuestos)
+          </h3>
+          <div class="h-80">
+            <canvas id="netoRealChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Resumen Ejecutivo -->
+        <div
+          class="mb-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200"
+        >
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">
+            🎯 Resumen Ejecutivo y Recomendación
+          </h3>
+          <div id="resumen-ejecutivo" class="text-sm space-y-2">
+            <!-- Se rellenará dinámicamente -->
+          </div>
+        </div>
+
         <div class="overflow-x-auto">
           <table class="w-full min-w-max text-left">
             <thead>
@@ -405,73 +450,196 @@
         <!-- Notas Aclaratorias -->
         <div class="mt-8 pt-6 border-t border-gray-200">
           <h3 class="text-xl font-semibold text-gray-700 mb-4">
-            Notas sobre los Cálculos y Fiscalidad
+            📋 Notas sobre los Cálculos y Fiscalidad Mejorada
           </h3>
           <div class="space-y-4 text-sm text-gray-600">
-            <p>
-              <strong class="text-blue-700">1. Fondo de Inversión:</strong> Se asume
-              un rescate total al final. Los impuestos se calculan sobre las <strong
-                class="font-semibold">ganancias de capital</strong
-              > (19%-28%). Para simplificar, se usa un tipo fijo del 23% sobre la
-              plusvalía.
-            </p>
-            <p>
-              <strong class="text-blue-700"
-                >2. Fondo + Renta Vitalicia (Tu Opción 2):</strong
-              > Este escenario usaría el 'Capital Bruto' del Fondo de Inversión para
-              contratar una Renta Vitalicia. La ventaja fiscal es <strong
-                class="font-semibold">en el cobro de esa renta</strong
-              > (depende de la edad, pero es muy favorable), no en la acumulación.
-            </p>
-            <p>
-              <strong class="text-green-700">3. PIAS (Tu Opción 3):</strong> La gran
-              ventaja fiscal es que, si se rescata como <strong
-                class="font-semibold">Renta Vitalicia</strong
-              > (y cumple 5 años de antigüedad), las <strong
-                class="font-semibold">ganancias están 100% exentas</strong
-              > de impuestos. El cálculo de 'Capital Neto' asume este escenario favorable
-              (Impuestos = 0).
-            </p>
-            <p>
-              <strong class="text-purple-700"
-                >4. Plan de Pensiones + Renta (Tu Opción 4):</strong
-              >
-              <ul class="list-disc list-inside ml-4 space-y-2">
-                <li>
-                  <strong>Ventaja (Ahorro Fiscal):</strong> Cada aportación mensual/anual
-                  reduce tu base imponible del IRPF. El cálculo suma este ahorro
-                  anual (Aportación Anual * Tipo IRPF) y lo añade al capital neto
-                  final.
-                </li>
-                <li>
-                  <strong>Desventaja (Rescate):</strong> Al rescatarlo (como renta
-                  o de golpe), <strong class="font-semibold"
-                    >TODO el capital</strong
-                  > (no solo las ganancias) tributa como <strong
-                    class="font-semibold">Rendimiento del Trabajo</strong
-                  > (al tipo IRPF, no como ahorro).
-                </li>
-                <li>
-                  El 'Capital Neto Ajustado' es: (Capital Bruto - Impuestos en
-                  Rescate) + Ahorro Fiscal Acumulado.
-                </li>
-              </ul>
-            </p>
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+              <p>
+                <strong class="text-blue-700"
+                  >1. Fondo de Inversión (Fiscalidad Real):</strong
+                >
+                Se aplica el <strong>tipo escalonado real</strong> de ahorro del
+                capital:
+                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                  <li>19% hasta 6.000€ de ganancia</li>
+                  <li>21% de 6.001€ a 50.000€</li>
+                  <li>23% de 50.001€ a 200.000€</li>
+                  <li>26% a partir de 200.001€</li>
+                </ul>
+              </p>
+            </div>
+
+            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+              <p>
+                <strong class="text-green-700"
+                  >2. PIAS (Fiscalidad por Edad Correcta):</strong
+                >
+                La exención fiscal depende de la <strong>edad de rescate</strong
+                > al contratar renta vitalicia:
+                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                  <li><strong>Hasta 40 años:</strong> 40% de exención</li>
+                  <li><strong>40-52 años:</strong> 50% de exención</li>
+                  <li><strong>52-67 años:</strong> 60% de exención</li>
+                  <li><strong>67+ años:</strong> 75% de exención</li>
+                </ul>
+                <p class="mt-2 text-xs">
+                  Solo las ganancias no exentas tributan al 19% (primer tramo de
+                  ahorro).
+                </p>
+              </p>
+            </div>
+
+            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+              <p>
+                <strong class="text-purple-700"
+                  >3. Plan de Pensiones + Límites Legales:</strong
+                >
+                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                  <li>
+                    <strong>Límite máximo:</strong> 1.500€/año (aplicado automáticamente)
+                  </li>
+                  <li>
+                    <strong>Ventaja:</strong> Reducción inmediata en IRPF por cada
+                    aportación
+                  </li>
+                  <li>
+                    <strong>Desventaja:</strong> TODO el capital rescatado tributa
+                    como rendimiento del trabajo
+                  </li>
+                  <li>
+                    <strong>Cálculo neto:</strong> (Capital - Impuestos rescate)
+                    + Ahorro fiscal acumulado
+                  </li>
+                </ul>
+              </p>
+            </div>
+
+            <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+              <p>
+                <strong class="text-amber-700"
+                  >4. Límites Automáticos Aplicados:</strong
+                >
+                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                  <li><strong>PIAS:</strong> Máximo 8.000€/año</li>
+                  <li><strong>Plan de Pensiones:</strong> Máximo 1.500€/año</li>
+                  <li>
+                    El simulador ajusta automáticamente las aportaciones si
+                    exceden estos límites
+                  </li>
+                </ul>
+              </p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <p>
+                <strong class="text-gray-700">5. Nuevas Funcionalidades:</strong
+                >
+                <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                  <li><strong>Fiscalidad real</strong> según tramos y edad</li>
+                  <li>
+                    <strong>Límites legales</strong> aplicados automáticamente
+                  </li>
+                  <li>
+                    <strong>Doble gráfico:</strong> Capital bruto vs Capital neto
+                    final
+                  </li>
+                  <li>
+                    <strong>Resumen ejecutivo</strong> con recomendación automática
+                  </li>
+                  <li>
+                    <strong>Alertas inteligentes</strong> sobre límites y exenciones
+                  </li>
+                </ul>
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <script is:inline>
-      // Variable global para el gráfico
+      // Variables globales para los gráficos
       let netoChart = null;
+      let netoRealChart = null;
+
+      /**
+       * Calcula el tipo de gravamen de ahorro según la ganancia acumulada
+       * @param {number} ganancia Ganancia total de capital
+       * @returns {number} Tipo de gravamen aplicable
+       */
+      function calcularTipoAhorro(ganancia) {
+        if (ganancia <= 6000) return 0.19;
+        if (ganancia <= 50000) return 0.21;
+        if (ganancia <= 200000) return 0.23;
+        return 0.26;
+      }
+
+      /**
+       * Calcula el impuesto escalonado sobre ganancias de capital
+       * @param {number} ganancia Ganancia total
+       * @returns {number} Impuesto total a pagar
+       */
+      function calcularImpuestoEscalonado(ganancia) {
+        if (ganancia <= 0) return 0;
+
+        let impuesto = 0;
+        let restante = ganancia;
+
+        // Tramo 1: hasta 6.000€ al 19%
+        const tramo1 = Math.min(restante, 6000);
+        impuesto += tramo1 * 0.19;
+        restante -= tramo1;
+
+        if (restante <= 0) return impuesto;
+
+        // Tramo 2: de 6.001€ a 50.000€ al 21%
+        const tramo2 = Math.min(restante, 44000);
+        impuesto += tramo2 * 0.21;
+        restante -= tramo2;
+
+        if (restante <= 0) return impuesto;
+
+        // Tramo 3: de 50.001€ a 200.000€ al 23%
+        const tramo3 = Math.min(restante, 150000);
+        impuesto += tramo3 * 0.23;
+        restante -= tramo3;
+
+        if (restante <= 0) return impuesto;
+
+        // Tramo 4: más de 200.000€ al 26%
+        impuesto += restante * 0.26;
+
+        return impuesto;
+      }
+
+      /**
+       * Calcula el porcentaje de exención de PIAS según la edad de rescate
+       * @param {number} edadRescate Edad cuando se rescata el PIAS
+       * @returns {number} Porcentaje de exención (0-1)
+       */
+      function calcularExencionPIAS(edadRescate) {
+        if (edadRescate < 40) return 0.4;
+        if (edadRescate < 52) return 0.5;
+        if (edadRescate < 67) return 0.6;
+        return 0.75; // 67+ años
+      }
+
+      /**
+       * Aplica límites legales a las aportaciones
+       * @param {number} aportacionAnual Aportación anual deseada
+       * @param {string} producto Tipo de producto ('pias' o 'pp')
+       * @returns {number} Aportación limitada
+       */
+      function aplicarLimites(aportacionAnual, producto) {
+        const limites = {
+          pias: 8000,
+          pp: 1500,
+        };
+        return Math.min(aportacionAnual, limites[producto] || aportacionAnual);
+      }
 
       /**
        * Inicializa o actualiza el gráfico de líneas con la evolución anual del capital bruto.
-       * @param {number[]} years Array de años [0, 1, 2, ..., horizonte]
-       * @param {number[]} capital_fi_anual Capital Bruto anual del Fondo de Inversión.
-       * @param {number[]} capital_pias_anual Capital Bruto anual del PIAS.
-       * @param {number[]} capital_pp_anual Capital Bruto anual del Plan de Pensiones.
        */
       function actualizarGrafico(
         years,
@@ -482,32 +650,32 @@
         const ctx = document.getElementById("netoChart").getContext("2d");
 
         const data = {
-          labels: years, // Eje X: Años
+          labels: years,
           datasets: [
             {
               label: "Fondo de Inversión (Bruto)",
               data: capital_fi_anual,
-              borderColor: "rgb(37, 99, 235)", // Azul
-              backgroundColor: "rgba(37, 99, 235, 0.5)",
-              tension: 0.2,
+              borderColor: "rgb(37, 99, 235)",
+              backgroundColor: "rgba(37, 99, 235, 0.1)",
+              tension: 0.3,
               pointRadius: 2,
               fill: false,
             },
             {
               label: "PIAS (Bruto)",
               data: capital_pias_anual,
-              borderColor: "rgb(22, 163, 74)", // Verde
-              backgroundColor: "rgba(22, 163, 74, 0.5)",
-              tension: 0.2,
+              borderColor: "rgb(22, 163, 74)",
+              backgroundColor: "rgba(22, 163, 74, 0.1)",
+              tension: 0.3,
               pointRadius: 2,
               fill: false,
             },
             {
               label: "Plan de Pensiones (Bruto)",
               data: capital_pp_anual,
-              borderColor: "rgb(126, 34, 206)", // Morado
-              backgroundColor: "rgba(126, 34, 206, 0.5)",
-              tension: 0.2,
+              borderColor: "rgb(126, 34, 206)",
+              backgroundColor: "rgba(126, 34, 206, 0.1)",
+              tension: 0.3,
               pointRadius: 2,
               fill: false,
             },
@@ -519,10 +687,11 @@
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              display: true, // Mostrar leyenda
+              display: true,
               position: "top",
               labels: {
                 usePointStyle: true,
+                font: { size: 12 },
               },
             },
             tooltip: {
@@ -560,7 +729,7 @@
                 text: "Capital Bruto Acumulado (€)",
               },
               ticks: {
-                callback: function (value, index, values) {
+                callback: function (value) {
                   return new Intl.NumberFormat("es-ES", {
                     style: "currency",
                     currency: "EUR",
@@ -573,17 +742,205 @@
           },
         };
 
-        // Destruir el gráfico anterior si existe
         if (netoChart) {
           netoChart.destroy();
         }
-
-        // Crear el nuevo gráfico de líneas
         netoChart = new Chart(ctx, {
           type: "line",
           data: data,
           options: options,
         });
+      }
+
+      /**
+       * Actualiza el gráfico de capital neto real
+       */
+      function actualizarGraficoNeto(
+        years,
+        neto_fi_anual,
+        neto_pias_anual,
+        neto_pp_anual
+      ) {
+        const ctx = document.getElementById("netoRealChart").getContext("2d");
+
+        const data = {
+          labels: years,
+          datasets: [
+            {
+              label: "Fondo de Inversión (Neto)",
+              data: neto_fi_anual,
+              borderColor: "rgb(37, 99, 235)",
+              backgroundColor: "rgba(37, 99, 235, 0.2)",
+              tension: 0.3,
+              pointRadius: 3,
+              fill: false,
+              borderWidth: 3,
+            },
+            {
+              label: "PIAS (Neto)",
+              data: neto_pias_anual,
+              borderColor: "rgb(22, 163, 74)",
+              backgroundColor: "rgba(22, 163, 74, 0.2)",
+              tension: 0.3,
+              pointRadius: 3,
+              fill: false,
+              borderWidth: 3,
+            },
+            {
+              label: "Plan de Pensiones (Neto + Ahorro)",
+              data: neto_pp_anual,
+              borderColor: "rgb(126, 34, 206)",
+              backgroundColor: "rgba(126, 34, 206, 0.2)",
+              tension: 0.3,
+              pointRadius: 3,
+              fill: false,
+              borderWidth: 3,
+            },
+          ],
+        };
+
+        const options = {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: "top",
+              labels: {
+                usePointStyle: true,
+                font: { size: 12 },
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  let label = context.dataset.label || "";
+                  if (label) {
+                    label += ": ";
+                  }
+                  label += new Intl.NumberFormat("es-ES", {
+                    style: "currency",
+                    currency: "EUR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(context.raw);
+                  return label;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Tiempo (Años)",
+              },
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Capital Neto Final (€)",
+              },
+              ticks: {
+                callback: function (value) {
+                  return new Intl.NumberFormat("es-ES", {
+                    style: "currency",
+                    currency: "EUR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(value);
+                },
+              },
+            },
+          },
+        };
+
+        if (netoRealChart) {
+          netoRealChart.destroy();
+        }
+        netoRealChart = new Chart(ctx, {
+          type: "line",
+          data: data,
+          options: options,
+        });
+      }
+
+      /**
+       * Genera el resumen ejecutivo con recomendaciones
+       */
+      function generarResumenEjecutivo(resultados) {
+        const {
+          neto_fi,
+          neto_pias,
+          neto_pp_ajustado,
+          totalAportado,
+          edadRescate,
+          limitesAplicados,
+        } = resultados;
+
+        // Determinar el mejor producto
+        let mejor = {
+          nombre: "Fondo de Inversión",
+          valor: neto_fi,
+          color: "blue",
+        };
+        if (neto_pias > mejor.valor) {
+          mejor = { nombre: "PIAS", valor: neto_pias, color: "green" };
+        }
+        if (neto_pp_ajustado > mejor.valor) {
+          mejor = {
+            nombre: "Plan de Pensiones",
+            valor: neto_pp_ajustado,
+            color: "purple",
+          };
+        }
+
+        const diferencia =
+          mejor.valor - Math.min(neto_fi, neto_pias, neto_pp_ajustado);
+        const rentabilidadTotal =
+          ((mejor.valor - totalAportado) / totalAportado) * 100;
+
+        let html = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-lg border border-${mejor.color}-200">
+              <h4 class="font-semibold text-${mejor.color}-800 mb-2">🏆 Mejor Opción</h4>
+              <p class="text-sm"><strong>${mejor.nombre}</strong></p>
+              <p class="text-lg font-bold text-${mejor.color}-700">${new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(mejor.valor)}</p>
+              <p class="text-xs text-gray-600">Ventaja: +${new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(diferencia)}</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border border-gray-200">
+              <h4 class="font-semibold text-gray-800 mb-2">📊 Rentabilidad Total</h4>
+              <p class="text-lg font-bold text-gray-700">${rentabilidadTotal.toFixed(1)}%</p>
+              <p class="text-xs text-gray-600">Sobre inversión total</p>
+            </div>
+          </div>
+        `;
+
+        // Añadir alertas importantes
+        html += `<div class="mt-4 space-y-2">`;
+
+        if (limitesAplicados.pias || limitesAplicados.pp) {
+          html += `<div class="flex items-center text-amber-700 bg-amber-50 p-2 rounded">
+            <span class="mr-2">⚠️</span>
+            <span class="text-sm">Se han aplicado límites legales automáticamente.</span>
+          </div>`;
+        }
+
+        if (edadRescate < 67) {
+          const exencion = calcularExencionPIAS(edadRescate) * 100;
+          html += `<div class="flex items-center text-blue-700 bg-blue-50 p-2 rounded">
+            <span class="mr-2">ℹ️</span>
+            <span class="text-sm">PIAS: Exención del ${exencion}% a los ${edadRescate} años. Mejora con la edad.</span>
+          </div>`;
+        }
+
+        html += `</div>`;
+
+        document.getElementById("resumen-ejecutivo").innerHTML = html;
       }
 
       document.addEventListener("DOMContentLoaded", function () {
@@ -601,9 +958,11 @@
               parseFloat(document.getElementById("inflacion").value) / 100 || 0;
             const irpf =
               parseFloat(document.getElementById("irpf").value) / 100 || 0;
+            const edadActual =
+              parseInt(document.getElementById("edad").value) || 35;
+            const edadRescate = edadActual + horizonte;
 
             // --- 2. LEER COMISIONES Y RENTABILIDAD POR PRODUCTO ---
-
             // Fondo de Inversión
             const fi_rentabilidad_anual =
               parseFloat(document.getElementById("fi_rentabilidad").value) /
@@ -644,87 +1003,134 @@
             const pp_rentabilidadMensual =
               Math.pow(1 + pp_rentabilidad_anual, 1 / 12) - 1;
 
-            // --- 3. INICIALIZAR VARIABLES DE CÁLCULO ---
+            // --- 3. APLICAR LÍMITES Y VALIDACIONES ---
+            const aportacionAnual = mensual * 12;
+            const limitePIAS = aplicarLimites(aportacionAnual, "pias");
+            const limitePP = aplicarLimites(aportacionAnual, "pp");
+
+            const limitesAplicados = {
+              pias: limitePIAS < aportacionAnual,
+              pp: limitePP < aportacionAnual,
+            };
+
+            // Mostrar alerta si se aplican límites
+            const limiteInfo = document.getElementById("limite-info");
+            if (limitesAplicados.pias || limitesAplicados.pp) {
+              limiteInfo.classList.remove("hidden");
+            } else {
+              limiteInfo.classList.add("hidden");
+            }
+
+            // --- 4. INICIALIZAR VARIABLES DE CÁLCULO ---
             let capital_fi = inicial;
             let capital_pias = inicial;
             let capital_pp = inicial;
 
             let totalAportado = inicial;
-            let ahorroFiscalPP = 0; // El gran beneficio del PP
+            let ahorroFiscalPP = 0;
 
-            // Arrays para el gráfico (Capital Bruto a lo largo del tiempo)
+            // Arrays para los gráficos
             let capital_fi_anual = [inicial];
             let capital_pias_anual = [inicial];
             let capital_pp_anual = [inicial];
+            let neto_fi_anual = [inicial];
+            let neto_pias_anual = [inicial];
+            let neto_pp_anual = [inicial];
             let years = [0];
 
-            // --- 4. BUCLE DE SIMULACIÓN ANUAL (CON CÁLCULO MENSUAL INTERNO) ---
+            // --- 5. BUCLE DE SIMULACIÓN ANUAL ---
             for (let ano = 0; ano < horizonte; ano++) {
-              let aportacionAnualPP = 0;
+              // Calcular aportaciones con límites
+              const aportacion_fi = mensual * 12;
+              const aportacion_pias = Math.min(mensual * 12, limitePIAS);
+              const aportacion_pp = Math.min(mensual * 12, limitePP);
 
+              // Actualizar total aportado (usar el mínimo para cálculo justo)
+              totalAportado += Math.min(
+                aportacion_fi,
+                aportacion_pias,
+                aportacion_pp
+              );
+
+              // Ahorro fiscal del PP
+              ahorroFiscalPP += aportacion_pp * irpf;
+
+              // Simulación mensual
               for (let mes = 0; mes < 12; mes++) {
-                // CÁLCULOS DE APORTACIÓN Y RENTABILIDAD MENSUAL
+                const aportacion_mensual_fi = aportacion_fi / 12;
+                const aportacion_mensual_pias = aportacion_pias / 12;
+                const aportacion_mensual_pp = aportacion_pp / 12;
 
-                // Solo actualizamos totalAportado en el bucle si hay aportación mensual
-                if (mensual > 0) {
-                  totalAportado += mensual;
-                  aportacionAnualPP += mensual;
-                }
-
-                // Añadir aportación mensual y aplicar rentabilidad
+                // Aplicar aportaciones y rentabilidad mensual
                 capital_fi =
-                  (capital_fi + mensual) * (1 + fi_rentabilidadMensual);
+                  (capital_fi + aportacion_mensual_fi) *
+                  (1 + fi_rentabilidadMensual);
                 capital_pias =
-                  (capital_pias + mensual) * (1 + pias_rentabilidadMensual);
+                  (capital_pias + aportacion_mensual_pias) *
+                  (1 + pias_rentabilidadMensual);
                 capital_pp =
-                  (capital_pp + mensual) * (1 + pp_rentabilidadMensual);
+                  (capital_pp + aportacion_mensual_pp) *
+                  (1 + pp_rentabilidadMensual);
               }
 
-              // CÁLCULOS ANUALES (Comisiones y Ahorro Fiscal)
-
-              // Ahorro fiscal del PP (al final del año sobre lo aportado)
-              ahorroFiscalPP += aportacionAnualPP * irpf;
-
-              // Aplicar comisiones y costes anuales (Se aplican sobre el saldo final del año)
+              // Aplicar comisiones anuales
               capital_fi *= 1 - comision_fi_total;
-              capital_pias *= 1 - pias_gestion;
-              capital_pias -= pias_seguro; // Coste fijo del seguro
+              capital_pias = capital_pias * (1 - pias_gestion) - pias_seguro;
               capital_pp *= 1 - comision_pp_total;
 
-              // GUARDAR DATOS ANUALES PARA EL GRÁFICO (Capital Bruto)
+              // Guardar datos anuales
               capital_fi_anual.push(capital_fi);
               capital_pias_anual.push(capital_pias);
               capital_pp_anual.push(capital_pp);
+
+              // Calcular netos aproximados para el gráfico
+              const ganancias_fi_temp = capital_fi - totalAportado;
+              const impuestos_fi_temp =
+                calcularImpuestoEscalonado(ganancias_fi_temp);
+              const exencion_pias = calcularExencionPIAS(edadRescate);
+              const ganancias_pias = capital_pias - totalAportado;
+              const impuestos_pias_temp =
+                ganancias_pias * (1 - exencion_pias) * 0.19; // Mínimo de ahorro
+              const impuestos_pp_temp = capital_pp * irpf;
+
+              neto_fi_anual.push(capital_fi - impuestos_fi_temp);
+              neto_pias_anual.push(
+                capital_pias - Math.max(0, impuestos_pias_temp)
+              );
+              neto_pp_anual.push(
+                capital_pp - impuestos_pp_temp + ahorroFiscalPP
+              );
+
               years.push(ano + 1);
             }
 
-            // --- 5. CÁLCULO DE IMPUESTOS Y NETO FINAL ---
-
-            // 5.1. Fondo de Inversión
+            // --- 6. CÁLCULO DE IMPUESTOS Y NETO FINAL ---
+            // Fondo de Inversión - Impuesto escalonado
             const ganancias_fi = capital_fi - totalAportado;
-            // Usamos 23% como tipo medio de ahorro
-            const impuestos_fi = ganancias_fi > 0 ? ganancias_fi * 0.23 : 0;
+            const impuestos_fi = calcularImpuestoEscalonado(ganancias_fi);
             const neto_fi = capital_fi - impuestos_fi;
 
-            // 5.2. PIAS
-            // Asumimos el escenario fiscalmente óptimo: rescate como Renta Vitalicia (Exento).
-            const impuestos_pias = 0;
-            const neto_pias = capital_pias;
+            // PIAS - Exención por edad
+            const exencionPIAS = calcularExencionPIAS(edadRescate);
+            const ganancias_pias = capital_pias - totalAportado;
+            const impuestos_pias = Math.max(
+              0,
+              ganancias_pias * (1 - exencionPIAS) * 0.19
+            );
+            const neto_pias = capital_pias - impuestos_pias;
 
-            // 5.3. Plan de Pensiones
-            // El rescate tributa TODO como rendimiento del trabajo (al tipo IRPF)
+            // Plan de Pensiones
             const impuestos_pp = capital_pp * irpf;
             const neto_pp_bruto = capital_pp - impuestos_pp;
-            // El neto real es el neto del rescate + todo lo que nos ahorramos año a año
             const neto_pp_ajustado = neto_pp_bruto + ahorroFiscalPP;
 
-            // --- 6. CÁLCULO DEL CAPITAL REAL (AJUSTADO A INFLACIÓN) ---
+            // Capital real (ajustado a inflación)
             const factorInflacion = Math.pow(1 + inflacion, horizonte);
             const real_fi = neto_fi / factorInflacion;
             const real_pias = neto_pias / factorInflacion;
             const real_pp = neto_pp_ajustado / factorInflacion;
 
-            // --- 7. MOSTRAR RESULTADOS EN LA TABLA ---
+            // --- 7. MOSTRAR RESULTADOS ---
             const formatter = new Intl.NumberFormat("es-ES", {
               style: "currency",
               currency: "EUR",
@@ -732,31 +1138,29 @@
 
             document.getElementById("res_total_aportado").textContent =
               formatter.format(totalAportado);
-
             document.getElementById("res_bruto_fi").textContent =
               formatter.format(capital_fi);
             document.getElementById("res_bruto_pias").textContent =
               formatter.format(capital_pias);
             document.getElementById("res_bruto_pp").textContent =
               formatter.format(capital_pp);
-
             document.getElementById("res_ahorro_pp").textContent =
               `+${formatter.format(ahorroFiscalPP)}`;
-
             document.getElementById("res_impuestos_fi").textContent =
               `-${formatter.format(impuestos_fi)}`;
             document.getElementById("res_impuestos_pias").textContent =
-              formatter.format(impuestos_pias) + " (Exento)";
+              impuestos_pias > 0
+                ? `-${formatter.format(impuestos_pias)} (${Math.round(exencionPIAS * 100)}% exento)`
+                : formatter.format(0) +
+                  ` (${Math.round(exencionPIAS * 100)}% exento)`;
             document.getElementById("res_impuestos_pp").textContent =
               `-${formatter.format(impuestos_pp)}`;
-
             document.getElementById("res_neto_fi").textContent =
               formatter.format(neto_fi);
             document.getElementById("res_neto_pias").textContent =
               formatter.format(neto_pias);
             document.getElementById("res_neto_pp").textContent =
               formatter.format(neto_pp_ajustado);
-
             document.getElementById("res_real_fi").textContent =
               formatter.format(real_fi);
             document.getElementById("res_real_pias").textContent =
@@ -764,15 +1168,31 @@
             document.getElementById("res_real_pp").textContent =
               formatter.format(real_pp);
 
-            // --- 8. MOSTRAR GRÁFICO ---
+            // --- 8. ACTUALIZAR GRÁFICOS ---
             actualizarGrafico(
               years,
               capital_fi_anual,
               capital_pias_anual,
               capital_pp_anual
             );
+            actualizarGraficoNeto(
+              years,
+              neto_fi_anual,
+              neto_pias_anual,
+              neto_pp_anual
+            );
 
-            // Mostrar el contenedor de resultados
+            // --- 9. GENERAR RESUMEN EJECUTIVO ---
+            generarResumenEjecutivo({
+              neto_fi,
+              neto_pias,
+              neto_pp_ajustado,
+              totalAportado,
+              edadRescate,
+              limitesAplicados,
+            });
+
+            // Mostrar resultados
             document
               .getElementById("resultados-container")
               .classList.remove("hidden");
